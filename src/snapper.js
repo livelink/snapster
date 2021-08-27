@@ -7,22 +7,22 @@ export default class Snapper {
 
   snap(box) {
     return {
-      x: this._snaps(this.verticals, box.verticals, box.width) || null,
-      y: this._snaps(this.horizontals, box.horizontals, box.height) || null
+      x: this._snapEdges(this.verticals, box.verticals, box.width) || null,
+      y: this._snapEdges(this.horizontals, box.horizontals, box.height) || null
     };
   }
 
-  _snaps(edges, boxEdges, extent) {
+  _snapEdges(edges, boxEdges, extent) {
     let [start, middle, end] = boxEdges;
 
     return (
-      this._snapsFor(edges, start, 0) ||
-      this._snapsFor(edges, middle, extent / 2) ||
-      this._snapsFor(edges, end, extent)
+      this._snapEdge(edges, start, 0) ||
+      this._snapEdge(edges, middle, extent / 2) ||
+      this._snapEdge(edges, end, extent)
     );
   }
 
-  _snapsFor(edges, position, difference) {
+  _snapEdge(edges, position, difference) {
     for (const edge of edges) {
       if (edge - this.threshold < position && edge + this.threshold > position) {
         return edge - difference;
