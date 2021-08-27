@@ -1,0 +1,67 @@
+body {
+  background: #eee;
+}
+
+div {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.page {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  background: #fff;
+  margin: 4rem auto;
+}
+
+.guide {
+  background: purple;
+  position: absolute;
+  pointer-events: none;
+}
+
+.guide--horizontal {
+ right: 0;
+ left: 0;
+ height: 1px;
+}
+
+.guide--vertical {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.guide--page {
+  background: blue;
+}
+
+/* Examples */
+
+.box {
+  position: absolute;
+  background: #f80;
+  cursor: pointer;
+}
+
+#box-1 {
+  top: 100px;
+  left: 200px;
+  width: 100px;
+  height: 200px;
+}
+
+#box-2 {
+  top: 400px;
+  left: 300px;
+  width: 300px;
+  height: 100px;
+}
+
+#box-3 {
+  top: 100px;
+  left: 400px;
+  width: 200px;
+  height: 200px;
+}
