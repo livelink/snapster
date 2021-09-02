@@ -1,22 +1,35 @@
-// @ts-nocheck
+import { BoxInterface } from './box';
 
-interface SnapperInterface {}
+interface SnapperInterface {
+  horizontals: number[]
+  verticals: number[]
+  threshold: number
+}
 
-export default class Snapper {
-  constructor({ horizontals, verticals, threshold = 16 }) {
+type Snap = {
+  x: number | null,
+  y: number | null
+}
+
+export default class Snapper implements SnapperInterface {
+  horizontals: number[]
+  verticals: number[]
+  threshold: number
+
+  constructor(horizontals: number[], verticals: number[], threshold: number = 16) {
     this.horizontals = horizontals;
     this.verticals = verticals;
     this.threshold = threshold;
   }
 
-  snap(box) {
+  snap(box: BoxInterface): Snap {
     return {
       x: this._find(this.verticals, box.verticals, box.width) || null,
       y: this._find(this.horizontals, box.horizontals, box.height) || null
     };
   }
 
-  _find(edges, boxEdges, extent) {
+  _find(edges: number[], boxEdges: number[], extent: number): number | null {
     let [start, middle, end] = boxEdges;
 
     return (
@@ -26,7 +39,7 @@ export default class Snapper {
     );
   }
 
-  _move(edges, position, difference) {
+  _move(edges: number[], position: number, difference: number): number | null {
     for (const edge of edges) {
       if (edge - this.threshold < position && edge + this.threshold > position) {
         return edge - difference;
