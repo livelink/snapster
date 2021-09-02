@@ -1,10 +1,10 @@
-import './style.css'
-import Box from './src/box'
-import Edges from './src/edges'
-import Guides from './src/guides'
-import Snapper from './src/snapper'
+import './style.css';
+import Box from './src/box';
+import Edges from './src/edges';
+import Guides from './src/guides';
+import Snapper from './src/snapper';
 
-let dragging = null;
+let dragging = false;
 let shiftX;
 let shiftY;
 let edges = null;
@@ -24,12 +24,12 @@ document.addEventListener('mousedown', event => {
 
   edges = new Edges();
 
-  for (let element of document.querySelectorAll(`.box:not(#${target.id})`)) {    
+  for (let element of document.querySelectorAll(`.box:not(#${target.id})`)) {
     edges.add(
       new Box({
-        x: element.offsetLeft, 
+        x: element.offsetLeft,
         y: element.offsetTop,
-        width: element.clientWidth, 
+        width: element.clientWidth,
         height: element.clientHeight
       })
     );
@@ -42,9 +42,9 @@ document.addEventListener('mousemove', event => {
   if (!dragging) return;
 
   const box = new Box({
-    x: dragging.offsetLeft, 
+    x: dragging.offsetLeft,
     y: dragging.offsetTop,
-    width: dragging.clientWidth, 
+    width: dragging.clientWidth,
     height: dragging.clientHeight
   });
 

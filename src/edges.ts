@@ -1,15 +1,25 @@
+import { BoxInterface } from './box';
+
+type Match = {
+  horizontals: number[]
+  verticals: number[]
+}
+
 export default class Edges {
+  horizontals: number[]
+  verticals: number[]
+
   constructor() {
     this.horizontals = [];
     this.verticals = [];
   }
 
-  add(box) {
+  add(box: BoxInterface): void  {
     this.horizontals.push(...box.horizontals);
     this.verticals.push(...box.verticals);
   }
 
-  matches(box) {
+  matches(box: BoxInterface): Match {
     const boxHorizontals = box.horizontals;
     const boxVerticals = box.verticals;
 

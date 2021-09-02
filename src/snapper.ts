@@ -1,3 +1,7 @@
+// @ts-nocheck
+
+interface SnapperInterface {}
+
 export default class Snapper {
   constructor({ horizontals, verticals, threshold = 16 }) {
     this.horizontals = horizontals;
