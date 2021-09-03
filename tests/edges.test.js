@@ -1,5 +1,5 @@
-import Box from '../src/box';
-import Edges from '../src/edges';
+import Box from '../dist/box';
+import Edges from '../dist/edges';
 
 test('can get horizontal edges', () => {
   const edges = new Edges();

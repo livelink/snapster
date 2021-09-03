@@ -1,6 +1,6 @@
-import Box from '../src/box';
-import Edges from '../src/edges';
-import Snapper from '../src/snapper';
+import Box from '../dist/box';
+import Edges from '../dist/edges';
+import Snapper from '../dist/snapper';
 
 describe('single edges', () => {
   test('can snap box to left edge', () => {

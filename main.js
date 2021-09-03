@@ -9,7 +9,7 @@ let shiftX;
 let shiftY;
 let edges = null;
 
-const guides = new Guides({ container: document.querySelector('.page') });
+const guides = new Guides({ document, container: document.querySelector('.page') });
 
 document.addEventListener('mousedown', event => {
   const target = event.target;

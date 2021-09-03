@@ -1,6 +1,4 @@
-import Box from '../src/box';
-import Edges from '../src/edges';
-import Guides from '../src/guides';
+import Guides from '../dist/guides';
 
 test('can draw guides', () => {
   const document = {
@@ -8,7 +6,7 @@ test('can draw guides', () => {
       return { tagName, style: {} };
     }
   };
-  
+
   const body = {
     children: [],
     appendChild(child) {
@@ -27,7 +25,7 @@ test('can draw guides', () => {
   });
 
   expect(body.children).toEqual([
-    { 
+    {
       tagName: 'div',
       className: 'guide guide--horizontal',
       style: {
@@ -35,7 +33,7 @@ test('can draw guides', () => {
         left: null,
       }
     },
-    { 
+    {
       tagName: 'div',
       className: 'guide guide--horizontal',
       style: {
@@ -68,7 +66,7 @@ test('can remove unused guides', () => {
       return { tagName, style: {} };
     }
   };
-  
+
   const body = {
     children: [],
     appendChild(child) {
@@ -92,7 +90,7 @@ test('can remove unused guides', () => {
   });
 
   expect(body.children).toEqual([
-    { 
+    {
       tagName: 'div',
       className: 'guide guide--horizontal',
       style: {
@@ -100,7 +98,7 @@ test('can remove unused guides', () => {
         left: null,
       }
     },
-    { 
+    {
       tagName: 'div',
       className: 'guide guide--vertical',
       style: {
