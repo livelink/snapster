@@ -6,25 +6,28 @@ export interface BoxInterface {
   readonly horizontals: number[]
   readonly verticals: number[]
 }
-
-export default class Box implements BoxInterface {
+export default class Box {
   x: number
   y: number
   width: number
   height: number
-  readonly horizontals: number[]
-  readonly verticals: number[]
 
-  constructor(x: number, y: number, width: number, height: number) {
-    this.x = x
-    this.y = y
-    this.width = width
-    this.height = height
-    this.horizontals = this._edges(y, height)
-    this.verticals = this._edges(x, width)
+  constructor(options: BoxInterface) {
+    this.x = options.x
+    this.y = options.y
+    this.width = options.width
+    this.height = options.height
   }
 
-  private _edges(start: number, extent: number): number[] {
+  get horizontals() {
+    return this.edges(this.y, this.height)
+  }
+
+  get verticals() {
+    return this.edges(this.x, this.width)
+  }
+
+  private edges(start: number, extent: number): number[] {
     return [start, start + (extent / 2), start + extent];
   }
 }

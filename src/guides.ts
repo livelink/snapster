@@ -1,56 +1,69 @@
 
 interface GuidesInterface {
   container: HTMLElement
-  classer: (direction: string) => string
+  classer?: (direction: string) => string
   elements?: HTMLElement[]
 }
 
-export default class Guides implements GuidesInterface {
+interface DrawInterface {
+  horizontals: number[]
+  verticals: number[]
+}
+
+export default class Guides {
   container: HTMLElement
   classer: (direction: string) => string
-  elements?: HTMLElement[]
-  private _count: number
+  elements: HTMLElement[]
+  private count: number
 
-  constructor(container: HTMLElement, classer = (direction: string): string => `guide guide--${direction}`) {
-    this.container = container;
-    this.elements = [];
-    this.classer = classer;
-    this._count = 0
+  constructor (
+    options: GuidesInterface,
+    classer = (direction: string): string => `guide guide--${direction}`
+  ) {
+    this.container = options.container
+    this.elements = []
+    this.classer = classer
+    this.count = 0
   }
 
-  draw(horizontals: number[], verticals: number[]): void {
-    this._count = 0;
-    this._guidesFor(horizontals, 'horizontal', 'top', 'left');
-    this._guidesFor(verticals, 'vertical', 'left', 'top');
-    this._removeGuidesFrom(this._count);
+  draw(options: DrawInterface): void {
+    this.count = 0;
+    this.guidesFor(options.horizontals, 'horizontal', 'top', 'left');
+    this.guidesFor(options.verticals, 'vertical', 'left', 'top');
+    this.removeGuidesFrom(this.count);
   }
 
-  _guidesFor(edges: number[], direction: string, positioner: string, clearer: string): void {
+  private guidesFor(
+    edges: number[],
+    direction: string,
+    positioner: string,
+    clearer: string
+  ): void {
     for (const edge of edges) {
-      const element: HTMLElement = this._createGuide(direction);
+      const element: HTMLElement = this.createGuide(direction);
       element.style[positioner] = `${edge}px`;
       element.style[clearer] = null;
-      this._count++;
+      this.count++;
     };
   }
 
-  _createGuide(direction: string): HTMLElement {
-    let element: HTMLElement = (this.elements && this.elements[this._count]) || this._createElement();
+  private createGuide(direction: string): HTMLElement {
+    let element: HTMLElement = this.elements[this.count] || this.createElement();
     element.className = this.classer(direction);
 
     return element;
   }
 
-  _createElement() {
+  private createElement(): HTMLElement {
     const element = document.createElement('div');
     this.container.appendChild(element);
-    this.elements && this.elements.push(element);
+    this.elements.push(element);
 
     return element;
   }
 
-  _removeGuidesFrom(start:number) {
-    this.elements && this.elements.splice(start, this.elements.length).forEach(element => {
+  private removeGuidesFrom(start:number): void {
+    this.elements.splice(start, this.elements.length).forEach(element => {
       this.container.removeChild(element);
     });
   }

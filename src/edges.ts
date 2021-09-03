@@ -14,7 +14,7 @@ export default class Edges {
     this.verticals = [];
   }
 
-  add(box: BoxInterface): void  {
+  add(box: BoxInterface): void {
     this.horizontals.push(...box.horizontals);
     this.verticals.push(...box.verticals);
   }
