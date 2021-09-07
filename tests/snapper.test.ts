@@ -110,7 +110,7 @@ describe('multiple edges', () => {
 
     const { horizontals, verticals } = edges;
     const snapper = new Snapper({ horizontals, verticals });
-    const box = new Box({ x: 105, y: 155, width: 100, height: 120 });
+    const box = new Box({ x: 105, y: 135, width: 100, height: 120 });
 
     expect(snapper.snap(box)).toEqual({ x: 100, y: 140 });
   });
@@ -121,7 +121,7 @@ describe('multiple edges', () => {
 
     const { horizontals, verticals } = edges;
     const snapper = new Snapper({ horizontals, verticals });
-    const box = new Box({ x: 155, y: 155, width: 100, height: 120 });
+    const box = new Box({ x: 155, y: 135, width: 100, height: 120 });
 
     expect(snapper.snap(box)).toEqual({ x: 150, y: 140 });
   });
@@ -132,7 +132,7 @@ describe('multiple edges', () => {
 
     const { horizontals, verticals } = edges;
     const snapper = new Snapper({ horizontals, verticals });
-    const box = new Box({ x: 5, y: 155, width: 100, height: 120 });
+    const box = new Box({ x: 5, y: 135, width: 100, height: 120 });
 
     expect(snapper.snap(box)).toEqual({ x: 1, y: 140 });
   });
