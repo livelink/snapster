@@ -1,4 +1,4 @@
-import EdgesInterface from './interfaces/edges-interface';
+import GridInterface from './interfaces/grid-interface';
 import DocumentInterface from './interfaces/document-interface';
 import ContainerInterface from './interfaces/container-interface';
 import ElementInterface from './interfaces/element-interface';
@@ -6,10 +6,10 @@ import ElementInterface from './interfaces/element-interface';
 export default class Guides {// implements GuidesInterface {
   document: DocumentInterface;
   container: ContainerInterface;
-  classer?: (direction: string) => string;
+  classer: (direction: string) => string;
   elements: ElementInterface[];
-  count: number;  
-  
+  count: number;
+
   constructor(
     options: {
       document: DocumentInterface,
@@ -20,12 +20,12 @@ export default class Guides {// implements GuidesInterface {
   ) {
     this.document = options.document;
     this.container = options.container;
-    this.classer = options.classer || (direction: string) => `guide guide--${direction}`;
+    this.classer = options.classer || ((direction: string) => `guide guide--${direction}`);
     this.count = 0;
     this.elements = [];
   }
 
-  draw(options: EdgesInterface): void {
+  draw(options: GridInterface): void {
     this.count = 0;
     this.guidesFor(options.horizontals, 'horizontal', 'top', 'left');
     this.guidesFor(options.verticals, 'vertical', 'left', 'top');
@@ -61,9 +61,9 @@ export default class Guides {// implements GuidesInterface {
     return element;
   }
 
-  private removeGuidesFrom(start:number): void {
-    this.elements.splice(start, this.elements.length).forEach(element => {
+  private removeGuidesFrom(start: number): void {
+    this.elements.splice(start).forEach(element => {
       this.container.removeChild(element);
-    })
+    });
   }
 }

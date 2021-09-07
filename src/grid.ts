@@ -1,6 +1,6 @@
-import EdgesInterface from './interfaces/edges-interface';
+import GridInterface from './interfaces/grid-interface';
 
-export default class Edges {
+export default class Grid {
   horizontals: number[]
   verticals: number[]
 
@@ -9,12 +9,12 @@ export default class Edges {
     this.verticals = [];
   }
 
-  add(box: EdgesInterface): void {
+  add(box: GridInterface): void {
     this.horizontals.push(...box.horizontals);
     this.verticals.push(...box.verticals);
   }
 
-  matches(box: EdgesInterface): EdgesInterface {
+  matches(box: GridInterface): GridInterface {
     const boxHorizontals = box.horizontals;
     const boxVerticals = box.verticals;
 

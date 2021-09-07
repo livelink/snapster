@@ -29,9 +29,9 @@ export default class Snapper {
     };
   }
 
-  private find(edges: number[], boxEdges: number[], extent: number): number | null {
+  private find(edges: number[], boxGrid: number[], extent: number): number | null {
 
-    let [start, middle, end] = boxEdges;
+    let [start, middle, end] = boxGrid;
 
     return (
       this.move(edges, start, 0) ||

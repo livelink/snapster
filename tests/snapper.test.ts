@@ -1,13 +1,13 @@
 import Box from '../src/box';
-import Edges from '../src/edges';
+import Grid from '../src/grid';
 import Snapper from '../src/snapper';
 
 describe('single edges', () => {
   test('can snap box to left edge', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 305, y: 400, width: 100, height: 200 });
 
@@ -15,10 +15,10 @@ describe('single edges', () => {
   });
 
   test('can snap box to center edge', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 155, y: 400, width: 100, height: 120 });
 
@@ -26,10 +26,10 @@ describe('single edges', () => {
   });
 
   test('can snap box to right edge', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 300, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 300, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 195, y: 400, width: 100, height: 120 });
 
@@ -37,10 +37,10 @@ describe('single edges', () => {
   });
 
   test('can snap box to top edge', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 400, y: 305, width: 100, height: 120 });
 
@@ -48,10 +48,10 @@ describe('single edges', () => {
   });
 
   test('can snap box to middle edge', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 400, y: 145, width: 100, height: 120 });
 
@@ -59,10 +59,10 @@ describe('single edges', () => {
   });
 
   test('can snap box to bottom edge', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 300, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 300, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 400, y: 185, width: 100, height: 120 });
 
@@ -72,10 +72,10 @@ describe('single edges', () => {
 
 describe('multiple edges', () => {
   test('can snap to top left edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 305, y: 305, width: 100, height: 120 });
 
@@ -83,10 +83,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to top center edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 205, y: 305, width: 500, height: 500 });
 
@@ -94,10 +94,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to top right edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 101, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 101, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 5, y: 305, width: 100, height: 120 });
 
@@ -105,10 +105,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to middle left edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 105, y: 135, width: 100, height: 120 });
 
@@ -116,10 +116,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to middle center edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 155, y: 135, width: 100, height: 120 });
 
@@ -127,10 +127,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to middle right edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 101, y: 100, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 101, y: 100, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 5, y: 135, width: 100, height: 120 });
 
@@ -138,10 +138,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to bottom left edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 500, y: 500, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 500, y: 500, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 705, y: 405, width: 100, height: 100 });
 
@@ -149,10 +149,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to bottom center edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 100, y: 500, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 100, y: 500, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 55, y: 385, width: 100, height: 120 });
 
@@ -160,10 +160,10 @@ describe('multiple edges', () => {
   });
 
   test('can snap to bottom right edges', () => {
-    const edges = new Edges();
-    edges.add(new Box({ x: 1000, y: 1000, width: 200, height: 200 }));
+    const grid = new Grid();
+    grid.add(new Box({ x: 1000, y: 1000, width: 200, height: 200 }));
 
-    const { horizontals, verticals } = edges;
+    const { horizontals, verticals } = grid;
     const snapper = new Snapper({ horizontals, verticals });
     const box = new Box({ x: 545, y: 505, width: 450, height: 500 });
 

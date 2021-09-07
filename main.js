@@ -1,13 +1,13 @@
 import './style.css';
 import Box from './src/box';
-import Edges from './src/edges';
+import Grid from './src/grid';
 import Guides from './src/guides';
 import Snapper from './src/snapper';
 
 let drag = null;
 let shiftX;
 let shiftY;
-let edges = null;
+let grid = null;
 
 const guides = new Guides({ document, container: document.querySelector('.page') });
 
@@ -19,11 +19,11 @@ document.addEventListener('mousedown', event => {
   shiftX = event.pageX - target.offsetLeft;
   shiftY = event.pageY - target.offsetTop;
 
-  edges = new Edges();
+  grid = new Grid();
 
   for (let el of document.querySelectorAll(`.box:not(#${target.id})`)) {
     const { offsetLeft: x, offsetTop: y, clientWidth: width, clientHeight: height } = el
-    edges.add(new Box({ x, y, width, height }));
+    grid.add(new Box({ x, y, width, height }));
   };
 
   drag = target;
@@ -34,14 +34,14 @@ document.addEventListener('mousemove', event => {
 
   const { offsetLeft: x, offsetTop: y, clientWidth: width, clientHeight: height } = drag
   const box = new Box({ x, y, width, height });
-  const matches = edges.matches(box);
+  const matches = grid.matches(box);
 
   box.x = event.pageX - shiftX;
   box.y = event.pageY - shiftY;
 
   const point = new Snapper({
-    horizontals: edges.horizontals,
-    verticals: edges.verticals
+    horizontals: grid.horizontals,
+    verticals: grid.verticals
   }).snap(box);
 
   drag.style.left = `${ point.x || box.x }px`;

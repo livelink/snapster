@@ -6,7 +6,7 @@ import DocumentInterface from '../src/interfaces/document-interface';
 test('can draw guides', () => {
   const document: DocumentInterface = {
     createElement(tagName: string) {
-      return { tagName, style: {} };
+      return { tagName, className: '', style: {} };
     }
   };
 
@@ -66,17 +66,19 @@ test('can draw guides', () => {
 test('can remove unused guides', () => {
   const document: DocumentInterface = {
     createElement(tagName: string) {
-      return { tagName, style: {} };
+      return { tagName, className: '', style: {} };
     }
   };
 
   const body: ContainerInterface = {
     children: [],
+
     appendChild(child: ElementInterface) {
       this.children.push(child);
     },
+
     removeChild(child: ElementInterface) {
-      this.children.filter(existing => existing === child );
+      this.children = this.children.filter((existing: ElementInterface) => existing !== child);
     }
   };
 

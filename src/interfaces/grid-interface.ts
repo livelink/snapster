@@ -1,4 +1,4 @@
-export default interface EdgesInterface {
+export default interface GridInterface {
   horizontals: number[]
   verticals: number[]
 }

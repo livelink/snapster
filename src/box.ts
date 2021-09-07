@@ -3,8 +3,6 @@ export interface BoxInterface {
   y: number
   width: number
   height: number
-  horizontals: number[]
-  verticals: number[]
 }
 
 export default class Box implements BoxInterface {
