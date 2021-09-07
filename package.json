@@ -1,14 +1,16 @@
 {
   "name": "snapsterts",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "serve": "vite preview",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "jest": "^27.1.0",
+    "ts-jest": "^27.0.5",
     "typescript": "^4.3.2",
     "vite": "^2.5.2"
   }

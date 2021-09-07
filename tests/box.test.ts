@@ -1,4 +1,4 @@
-import Box from '../dist/box';
+import Box from '../src/box';
 
 test('can create box', () => {
   const box = new Box({ x: 10, y: 20, width: 30, height: 40 });

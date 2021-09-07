@@ -1,9 +1,4 @@
-import { BoxInterface } from './box';
-
-type Match = {
-  horizontals: number[]
-  verticals: number[]
-}
+import EdgesInterface from './interfaces/edges-interface';
 
 export default class Edges {
   horizontals: number[]
@@ -14,12 +9,12 @@ export default class Edges {
     this.verticals = [];
   }
 
-  add(box: BoxInterface): void {
+  add(box: EdgesInterface): void {
     this.horizontals.push(...box.horizontals);
     this.verticals.push(...box.verticals);
   }
 
-  matches(box: BoxInterface): Match {
+  matches(box: EdgesInterface): EdgesInterface {
     const boxHorizontals = box.horizontals;
     const boxVerticals = box.verticals;
 

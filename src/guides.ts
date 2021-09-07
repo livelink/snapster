@@ -1,39 +1,35 @@
+import EdgesInterface from './interfaces/edges-interface';
+import DocumentInterface from './interfaces/document-interface';
+import ContainerInterface from './interfaces/container-interface';
+import ElementInterface from './interfaces/element-interface';
 
-interface GuidesInterface {
-  document: Document
-  container: HTMLElement
-  classer?: (direction: string) => string
-  elements?: HTMLElement[]
-}
-
-interface DrawInterface {
-  horizontals: number[]
-  verticals: number[]
-}
-
-export default class Guides {
-  document: Document
-  container: HTMLElement
-  classer: (direction: string) => string
-  elements: HTMLElement[]
-  private count: number
-
-  constructor (
-    options: GuidesInterface,
-    classer = (direction: string): string => `guide guide--${direction}`
+export default class Guides {// implements GuidesInterface {
+  document: DocumentInterface;
+  container: ContainerInterface;
+  classer?: (direction: string) => string;
+  elements: ElementInterface[];
+  count: number;  
+  
+  constructor(
+    options: {
+      document: DocumentInterface,
+      container: ContainerInterface,
+      classer?: (direction: string) => string,
+      elements?: ElementInterface[]
+    }
   ) {
-    this.document = options.document
-    this.container = options.container
-    this.elements = []
-    this.classer = classer
-    this.count = 0
+    this.document = options.document;
+    this.container = options.container;
+    this.classer = options.classer || (direction: string) => `guide guide--${direction}`;
+    this.count = 0;
+    this.elements = [];
   }
 
-  draw(options: DrawInterface): void {
+  draw(options: EdgesInterface): void {
     this.count = 0;
-    this.guidesFor(options.horizontals, 'horizontal', 'top', 'left')
-    this.guidesFor(options.verticals, 'vertical', 'left', 'top')
-    this.removeGuidesFrom(this.count)
+    this.guidesFor(options.horizontals, 'horizontal', 'top', 'left');
+    this.guidesFor(options.verticals, 'vertical', 'left', 'top');
+    this.removeGuidesFrom(this.count);
   }
 
   private guidesFor(
@@ -43,31 +39,31 @@ export default class Guides {
     clearer: string
   ): void {
     for (const edge of edges) {
-      const element: HTMLElement = this.createGuide(direction);
-      element.style[positioner] = `${edge}px`
-      element.style[clearer] = null
-      this.count++
+      const element: ElementInterface = this.createGuide(direction);
+      element.style[positioner] = `${edge}px`;
+      element.style[clearer] = null;
+      this.count++;
     }
   }
 
-  private createGuide(direction: string): HTMLElement {
-    let element: HTMLElement = this.elements[this.count] || this.createElement()
-    element.className = this.classer(direction)
+  private createGuide(direction: string): ElementInterface {
+    let element: ElementInterface = this.elements[this.count] || this.createElement();
+    element.className = this.classer(direction);
 
-    return element
+    return element;
   }
 
-  private createElement(): HTMLElement {
-    const element = this.document.createElement('div')
-    this.container.appendChild(element)
-    this.elements.push(element)
+  private createElement(): ElementInterface {
+    const element = this.document.createElement('div');
+    this.container.appendChild(element);
+    this.elements.push(element);
 
-    return element
+    return element;
   }
 
   private removeGuidesFrom(start:number): void {
     this.elements.splice(start, this.elements.length).forEach(element => {
-      this.container.removeChild(element)
+      this.container.removeChild(element);
     })
   }
 }

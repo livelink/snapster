@@ -1,18 +1,21 @@
-import Guides from '../dist/guides';
+import Guides from '../src/guides';
+import ElementInterface from '../src/interfaces/element-interface';
+import ContainerInterface from '../src/interfaces/container-interface';
+import DocumentInterface from '../src/interfaces/document-interface';
 
 test('can draw guides', () => {
-  const document = {
-    createElement(tagName) {
+  const document: DocumentInterface = {
+    createElement(tagName: string) {
       return { tagName, style: {} };
     }
   };
 
-  const body = {
+  const body: ContainerInterface = {
     children: [],
-    appendChild(child) {
+    appendChild(child: ElementInterface) {
       this.children.push(child);
     },
-    removeChild(child) {
+    removeChild(child: ElementInterface) {
       this.children.filter(existing => existing === child );
     }
   };
@@ -61,19 +64,19 @@ test('can draw guides', () => {
 });
 
 test('can remove unused guides', () => {
-  const document = {
-    createElement(tagName) {
+  const document: DocumentInterface = {
+    createElement(tagName: string) {
       return { tagName, style: {} };
     }
   };
 
-  const body = {
+  const body: ContainerInterface = {
     children: [],
-    appendChild(child) {
+    appendChild(child: ElementInterface) {
       this.children.push(child);
     },
-    removeChild(child) {
-      this.children = this.children.filter(item => item !== child );
+    removeChild(child: ElementInterface) {
+      this.children.filter(existing => existing === child );
     }
   };
 

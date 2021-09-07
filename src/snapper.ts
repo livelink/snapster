@@ -1,8 +1,9 @@
-import { BoxInterface } from './box';
+import BoxInterface from './box';
+
 interface SnapperInterface {
   horizontals: number[]
   verticals: number[]
-  threshold: number
+  threshold?: number
 }
 
 type Snap = {
@@ -15,7 +16,7 @@ export default class Snapper {
   verticals: number[]
   threshold: number
 
-  constructor( options: SnapperInterface ) {
+  constructor(options: SnapperInterface) {
     this.horizontals = options.horizontals;
     this.verticals = options.verticals;
     this.threshold = options.threshold || 8;

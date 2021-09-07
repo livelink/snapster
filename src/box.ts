@@ -3,16 +3,17 @@ export interface BoxInterface {
   y: number
   width: number
   height: number
-  readonly horizontals: number[]
-  readonly verticals: number[]
+  horizontals: number[]
+  verticals: number[]
 }
-export default class Box {
+
+export default class Box implements BoxInterface {
   x: number
   y: number
   width: number
   height: number
 
-  constructor(options: BoxInterface) {
+  constructor(options: { x: number, y: number, width: number, height: number }) {
     this.x = options.x
     this.y = options.y
     this.width = options.width
