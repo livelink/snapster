@@ -28,7 +28,7 @@ export default class Snapper {
         return edge - difference;
       }
     }
-    
+
     return null;
   }
 }
