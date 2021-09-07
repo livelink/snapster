@@ -1,7 +1,6 @@
 import Box from '../src/box';
 import Edges from '../src/edges';
 
-
 test('can get horizontal edges', () => {
   const edges = new Edges();
 
@@ -33,12 +32,12 @@ test('can match top edge', () => {
   edges.add(new Box({ x: 600, y: 400, width: 200, height: 200 }));
 
   const matches = edges.matches(
-    new Box({ x: 400, y: 300, width: 100, height: 100 })
+    new Box({ x: 400, y: 300, width: 200, height: 100 })
   );
 
   expect(matches).toEqual({
     horizontals: [300, 400],
-    verticals: []
+    verticals: [600]
   });
 });
 
@@ -48,7 +47,7 @@ test('can match middle edge', () => {
   edges.add(new Box({ x: 100, y: 100, width: 200, height: 200 }));
 
   const matches = edges.matches(
-    new Box({ x: 400, y: 200, width: 100, height: 100 })
+    new Box({ x: 450, y: 200, width: 100, height: 200 })
   );
 
   expect(matches).toEqual({
@@ -63,12 +62,12 @@ test('can match center edge', () => {
   edges.add(new Box({ x: 100, y: 200, width: 200, height: 200 }));
 
   const matches = edges.matches(
-    new Box({ x: 200, y: 0, width: 100, height: 100 })
+    new Box({ x: 200, y: 0, width: 400, height: 100 })
   );
 
   expect(matches).toEqual({
     horizontals: [],
-    verticals: [200, 300]
+    verticals: [200]
   });
 });
 
@@ -78,7 +77,7 @@ test('can match bottom edge', () => {
   edges.add(new Box({ x: 100, y: 300, width: 200, height: 200 }));
 
   const matches = edges.matches(
-    new Box({ x: 400, y: 200, width: 100, height: 100 })
+    new Box({ x: 400, y: 200, width: 400, height: 100 })
   );
 
   expect(matches).toEqual({
@@ -93,15 +92,14 @@ test('can match left edge', () => {
   edges.add(new Box({ x: 300, y: 100, width: 200, height: 200 }));
 
   const matches = edges.matches(
-    new Box({ x: 200, y: 400, width: 100, height: 100 })
+    new Box({ x: 200, y: 400, width: 400, height: 100 })
   );
 
   expect(matches).toEqual({
     horizontals: [],
-    verticals: [300]
+    verticals: [400]
   });
 });
-
 
 test('can match right edge', () => {
   const edges = new Edges();
@@ -109,7 +107,7 @@ test('can match right edge', () => {
   edges.add(new Box({ x: 100, y: 200, width: 200, height: 200 }));
 
   const matches = edges.matches(
-    new Box({ x: 300, y: 0, width: 100, height: 100 })
+    new Box({ x: 300, y: 0, width: 200, height: 100 })
   );
 
   expect(matches).toEqual({
@@ -124,7 +122,7 @@ test('can match a horizontal and vertical', () => {
   edges.add(new Box({ x: 100, y: 200, width: 200, height: 200 }));
 
   const matches = edges.matches(
-    new Box({ x: 300, y: 400, width: 100, height: 100 })
+    new Box({ x: 300, y: 400, width: 300, height: 100 })
   );
 
   expect(matches).toEqual({
@@ -140,11 +138,11 @@ test('can match a horizontal and vertical from different boxes', () => {
   edges.add(new Box({ x: 400, y: 400, width: 100, height: 100 }));
 
   const matches = edges.matches(
-    new Box({ x: 200, y: 300, width: 100, height: 100 })
+    new Box({ x: 200, y: 300, width: 200, height: 100 })
   );
 
   expect(matches).toEqual({
     horizontals: [400],
-    verticals: [200]
+    verticals: [200, 400]
   });
 });
