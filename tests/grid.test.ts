@@ -1,27 +1,25 @@
 import Box from '../src/box';
 import Grid from '../src/grid';
 
-test('can get horizontal edges', () => {
+test('can get edges', () => {
   const grid = new Grid();
 
   grid.add(new Box({ x: 100, y: 200, width: 300, height: 400 }));
   grid.add(new Box({ x: 500, y: 600, width: 700, height: 800 }));
 
-  expect(grid.horizontals).toEqual([
-    200, 400, 600,
-    600, 1000, 1400
-  ]);
-});
-
-test('can get vertical edges', () => {
-  const grid = new Grid();
-
-  grid.add(new Box({ x: 100, y: 200, width: 300, height: 400 }));
-  grid.add(new Box({ x: 500, y: 600, width: 700, height: 800 }));
-
-  expect(grid.verticals).toEqual([
-    100, 250, 400,
-    500, 850, 1200
+  expect(grid.edges).toEqual([
+    expect.objectContaining({ direction: 'horizontal', position: 200 }),
+    expect.objectContaining({ direction: 'horizontal', position: 400 }),
+    expect.objectContaining({ direction: 'horizontal', position: 600 }),
+    expect.objectContaining({ direction: 'vertical', position: 100 }),
+    expect.objectContaining({ direction: 'vertical', position: 250 }),
+    expect.objectContaining({ direction: 'vertical', position: 400 }),
+    expect.objectContaining({ direction: 'horizontal', position: 600 }),
+    expect.objectContaining({ direction: 'horizontal', position: 1000 }),
+    expect.objectContaining({ direction: 'horizontal', position: 1400 }),
+    expect.objectContaining({ direction: 'vertical', position: 500 }),
+    expect.objectContaining({ direction: 'vertical', position: 850 }),
+    expect.objectContaining({ direction: 'vertical', position: 1200 })
   ]);
 });
 
@@ -35,10 +33,11 @@ test('can match top edge', () => {
     new Box({ x: 400, y: 300, width: 200, height: 100 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [300, 400],
-    verticals: [600]
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'horizontal', position: 300 }),
+    expect.objectContaining({ direction: 'horizontal', position: 400 }),
+    expect.objectContaining({ direction: 'vertical', position: 600 })
+  ]);
 });
 
 test('can match middle edge', () => {
@@ -50,10 +49,10 @@ test('can match middle edge', () => {
     new Box({ x: 450, y: 200, width: 100, height: 200 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [200, 300],
-    verticals: []
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'horizontal', position: 200 }),
+    expect.objectContaining({ direction: 'horizontal', position: 300 })
+  ]);
 });
 
 test('can match center edge', () => {
@@ -65,10 +64,9 @@ test('can match center edge', () => {
     new Box({ x: 200, y: 0, width: 400, height: 100 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [],
-    verticals: [200]
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'vertical', position: 200 })
+  ]);
 });
 
 test('can match bottom edge', () => {
@@ -80,10 +78,9 @@ test('can match bottom edge', () => {
     new Box({ x: 400, y: 200, width: 400, height: 100 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [300],
-    verticals: []
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'horizontal', position: 300 })
+  ]);
 });
 
 test('can match left edge', () => {
@@ -95,10 +92,9 @@ test('can match left edge', () => {
     new Box({ x: 200, y: 400, width: 400, height: 100 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [],
-    verticals: [400]
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'vertical', position: 400})
+  ]);
 });
 
 test('can match right edge', () => {
@@ -110,10 +106,9 @@ test('can match right edge', () => {
     new Box({ x: 300, y: 0, width: 200, height: 100 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [],
-    verticals: [300]
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'vertical', position: 300 })
+  ]);
 });
 
 test('can match a horizontal and vertical', () => {
@@ -125,10 +120,10 @@ test('can match a horizontal and vertical', () => {
     new Box({ x: 300, y: 400, width: 300, height: 100 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [400],
-    verticals: [300]
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'horizontal', position: 400 }),
+    expect.objectContaining({ direction: 'vertical', position: 300 })
+  ]);
 });
 
 test('can match a horizontal and vertical from different boxes', () => {
@@ -141,8 +136,9 @@ test('can match a horizontal and vertical from different boxes', () => {
     new Box({ x: 200, y: 300, width: 200, height: 100 })
   );
 
-  expect(matches).toEqual({
-    horizontals: [400],
-    verticals: [200, 400]
-  });
+  expect(matches).toEqual([
+    expect.objectContaining({ direction: 'vertical', position: 200 }),
+    expect.objectContaining({ direction: 'horizontal', position: 400 }),
+    expect.objectContaining({ direction: 'vertical', position: 400 }),
+  ]);
 });

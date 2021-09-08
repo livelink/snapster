@@ -1,27 +1,21 @@
 import Box from './box'
-import GridInterface from './interfaces/grid-interface';
+// import GridInterface from './interfaces/grid-interface';
+import Edge from './edge';
 
 export default class Grid {
-  horizontals: number[]
-  verticals: number[]
+  edges: Edge[]
 
   constructor() {
-    this.horizontals = [];
-    this.verticals = [];
+    this.edges = [];
   }
 
   add(box: Box): void {
-    this.horizontals.push(...box.horizontals);
-    this.verticals.push(...box.verticals);
+    this.edges.push(...box.edges);
   }
 
-  matches(box: Box): GridInterface {
-    const boxHorizontals = box.horizontals;
-    const boxVerticals = box.verticals;
+  matches(box: Box): Edge[] {
+    const edges = box.edges;
 
-    return {
-      horizontals: this.horizontals.filter(value => boxHorizontals.includes(value)),
-      verticals: this.verticals.filter(value => boxVerticals.includes(value))
-    }
+    return this.edges.filter(edge => edges.some(compare => compare.is(edge)));
   }
 }

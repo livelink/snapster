@@ -1,25 +1,29 @@
+import Edge from "./edge";
 export default class Box {
-  x: number
-  y: number
-  width: number
-  height: number
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 
   constructor(options: { x: number, y: number, width: number, height: number }) {
-    this.x = options.x
-    this.y = options.y
-    this.width = options.width
-    this.height = options.height
+    this.x = options.x;
+    this.y = options.y;
+    this.width = options.width;
+    this.height = options.height;
   }
 
-  get horizontals(): number[] {
-    return this.edges(this.y, this.height)
+  get edges(): Edge[] {
+    const horizontals = this.intersects('horizontal', this.y, this.height);
+    const verticals = this.intersects('vertical', this.x, this.width);
+
+    return [...horizontals, ...verticals];
   }
 
-  get verticals(): number[] {
-    return this.edges(this.x, this.width)
-  }
-
-  private edges(start: number, extent: number): number[] {
-    return [start, start + (extent / 2), start + extent];
+  private intersects(direction: string, start: number, extent: number): Edge[] {
+    return [
+      new Edge({ direction: direction, position: start }),
+      new Edge({ direction: direction, position: start + (extent / 2) }),
+      new Edge({ direction: direction, position: start + extent })
+    ];
   }
 }
