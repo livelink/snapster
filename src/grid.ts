@@ -1,16 +1,22 @@
-import Box from './box'
-// import GridInterface from './interfaces/grid-interface';
 import Edge from './edge';
+import Box from './box'
 
 export default class Grid {
-  edges: Edge[]
+  horizontals: Edge[]
+  verticals: Edge[]
 
   constructor() {
-    this.edges = [];
+    this.horizontals = [];
+    this.verticals = [];
   }
 
   add(box: Box): void {
-    this.edges.push(...box.edges);
+    this.horizontals.push(...box.horizontals);
+    this.verticals.push(...box.verticals);
+  }
+
+  get edges(): Edge[] {
+    return [...this.horizontals, ...this.verticals];
   }
 
   matches(box: Box): Edge[] {

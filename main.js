@@ -9,7 +9,7 @@ let shiftX;
 let shiftY;
 let grid = null;
 
-const guides = new Renderer({ document, container: document.querySelector('.page') });
+const renderer = new Renderer({ document, container: document.querySelector('.page') });
 
 document.addEventListener('mousedown', event => {
   const target = event.target;
@@ -39,19 +39,16 @@ document.addEventListener('mousemove', event => {
   box.x = event.pageX - shiftX;
   box.y = event.pageY - shiftY;
 
-  const point = new Snapper({
-    horizontals: grid.horizontals,
-    verticals: grid.verticals
-  }).snap(box);
+  const point = new Snapper({ grid: grid }).snap(box);
 
   drag.style.left = `${ point.x || box.x }px`;
   drag.style.top = `${ point.y || box.y }px`;
 
-  guides.draw(matches);
+  renderer.draw(matches);
 });
 
 document.addEventListener('mouseup', event => {
   if (!drag) return;
   drag = null;
-  guides.draw({ horizontals: [], verticals: [] });
+  renderer.draw([]);
 });

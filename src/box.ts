@@ -12,18 +12,47 @@ export default class Box {
     this.height = options.height;
   }
 
-  get edges(): Edge[] {
-    const horizontals = this.intersects('horizontal', this.y, this.height);
-    const verticals = this.intersects('vertical', this.x, this.width);
-
-    return [...horizontals, ...verticals];
+  get top() {
+    return this.y;
   }
 
-  private intersects(direction: string, start: number, extent: number): Edge[] {
+  get middle() {
+    return this.y + (this.height / 2);
+  }
+
+  get bottom() {
+    return this.y + this.height;
+  }
+
+  get left() {
+    return this.x;
+  }
+
+  get center() {
+    return this.x + (this.width / 2);
+  }
+
+  get right() {
+    return this.x + this.width;
+  }
+
+  get horizontals(): Edge[] {
     return [
-      new Edge({ direction: direction, position: start }),
-      new Edge({ direction: direction, position: start + (extent / 2) }),
-      new Edge({ direction: direction, position: start + extent })
+      new Edge({ direction: 'horizontal', position: this.top }),
+      new Edge({ direction: 'horizontal', position: this.middle }),
+      new Edge({ direction: 'horizontal', position: this.bottom })
     ];
+  }
+
+  get verticals(): Edge[] {
+    return [
+      new Edge({ direction: 'vertical', position: this.left }),
+      new Edge({ direction: 'vertical', position: this.center }),
+      new Edge({ direction: 'vertical', position: this.right })
+    ];
+  }
+
+  get edges(): Edge[] {
+    return [...this.horizontals, ...this.verticals];
   }
 }

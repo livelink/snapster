@@ -11,12 +11,44 @@ test('can get edges', () => {
     expect.objectContaining({ direction: 'horizontal', position: 200 }),
     expect.objectContaining({ direction: 'horizontal', position: 400 }),
     expect.objectContaining({ direction: 'horizontal', position: 600 }),
-    expect.objectContaining({ direction: 'vertical', position: 100 }),
-    expect.objectContaining({ direction: 'vertical', position: 250 }),
-    expect.objectContaining({ direction: 'vertical', position: 400 }),
     expect.objectContaining({ direction: 'horizontal', position: 600 }),
     expect.objectContaining({ direction: 'horizontal', position: 1000 }),
     expect.objectContaining({ direction: 'horizontal', position: 1400 }),
+    expect.objectContaining({ direction: 'vertical', position: 100 }),
+    expect.objectContaining({ direction: 'vertical', position: 250 }),
+    expect.objectContaining({ direction: 'vertical', position: 400 }),
+    expect.objectContaining({ direction: 'vertical', position: 500 }),
+    expect.objectContaining({ direction: 'vertical', position: 850 }),
+    expect.objectContaining({ direction: 'vertical', position: 1200 })
+  ]);
+});
+
+test('can get horizontal edges', () => {
+  const grid = new Grid();
+
+  grid.add(new Box({ x: 100, y: 200, width: 300, height: 400 }));
+  grid.add(new Box({ x: 500, y: 600, width: 700, height: 800 }));
+
+  expect(grid.horizontals).toEqual([
+    expect.objectContaining({ direction: 'horizontal', position: 200 }),
+    expect.objectContaining({ direction: 'horizontal', position: 400 }),
+    expect.objectContaining({ direction: 'horizontal', position: 600 }),
+    expect.objectContaining({ direction: 'horizontal', position: 600 }),
+    expect.objectContaining({ direction: 'horizontal', position: 1000 }),
+    expect.objectContaining({ direction: 'horizontal', position: 1400 })
+  ]);
+});
+
+test('can get vertical edges', () => {
+  const grid = new Grid();
+
+  grid.add(new Box({ x: 100, y: 200, width: 300, height: 400 }));
+  grid.add(new Box({ x: 500, y: 600, width: 700, height: 800 }));
+
+  expect(grid.verticals).toEqual([
+    expect.objectContaining({ direction: 'vertical', position: 100 }),
+    expect.objectContaining({ direction: 'vertical', position: 250 }),
+    expect.objectContaining({ direction: 'vertical', position: 400 }),
     expect.objectContaining({ direction: 'vertical', position: 500 }),
     expect.objectContaining({ direction: 'vertical', position: 850 }),
     expect.objectContaining({ direction: 'vertical', position: 1200 })
@@ -137,8 +169,8 @@ test('can match a horizontal and vertical from different boxes', () => {
   );
 
   expect(matches).toEqual([
-    expect.objectContaining({ direction: 'vertical', position: 200 }),
     expect.objectContaining({ direction: 'horizontal', position: 400 }),
+    expect.objectContaining({ direction: 'vertical', position: 200 }),
     expect.objectContaining({ direction: 'vertical', position: 400 }),
   ]);
 });

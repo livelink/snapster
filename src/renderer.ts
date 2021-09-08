@@ -1,14 +1,18 @@
-import GridInterface from './interfaces/grid-interface';
 import DocumentInterface from './interfaces/document-interface';
 import ContainerInterface from './interfaces/container-interface';
 import ElementInterface from './interfaces/element-interface';
+import Edge from './edge';
+
+const positioning = {
+  horizontal: { positioner: 'top', clearer: 'left' },
+  vertical: { positioner: 'left', clearer: 'top' }
+}
 
 export default class Renderer {
   document: DocumentInterface;
   container: ContainerInterface;
   classer: (direction: string) => string;
   elements: ElementInterface[];
-  count: number;
 
   constructor(
     options: {
@@ -21,36 +25,22 @@ export default class Renderer {
     this.document = options.document;
     this.container = options.container;
     this.classer = options.classer || ((direction: string) => `guide guide--${direction}`);
-    this.count = 0;
     this.elements = [];
   }
 
-  draw(options: GridInterface): void {
-    this.count = 0;
-    this.guidesFor(options.horizontals, 'horizontal', 'top', 'left');
-    this.guidesFor(options.verticals, 'vertical', 'left', 'top');
-    this.removeGuidesFrom(this.count);
-  }
+  draw(edges: Edge[]): void {
+    let count = 0;
 
-  private guidesFor(
-    edges: number[],
-    direction: string,
-    positioner: string,
-    clearer: string
-  ): void {
     for (const edge of edges) {
-      const element: ElementInterface = this.createGuide(direction);
-      element.style[positioner] = `${edge}px`;
-      element.style[clearer] = null;
-      this.count++;
+      const element: ElementInterface = this.elements[count] || this.createElement();
+      const lookup = positioning[edge.direction];
+      element.className = this.classer(edge.direction);
+      element.style[lookup.positioner] = `${edge.position}px`;
+      element.style[lookup.clearer] = null;
+      count++;
     }
-  }
 
-  private createGuide(direction: string): ElementInterface {
-    let element: ElementInterface = this.elements[this.count] || this.createElement();
-    element.className = this.classer(direction);
-
-    return element;
+    this.removeGuidesFrom(count);
   }
 
   private createElement(): ElementInterface {

@@ -2,6 +2,7 @@ import Renderer from '../src/renderer';
 import ElementInterface from '../src/interfaces/element-interface';
 import ContainerInterface from '../src/interfaces/container-interface';
 import DocumentInterface from '../src/interfaces/document-interface';
+import Edge from '../src/edge';
 
 test('can draw guides', () => {
   const document: DocumentInterface = {
@@ -22,10 +23,12 @@ test('can draw guides', () => {
 
   const guides = new Renderer({ document, container: body });
 
-  guides.draw({
-    horizontals: [100, 200],
-    verticals: [300, 400]
-  });
+  guides.draw([
+    new Edge({ direction: 'horizontal', position: 100 }),
+    new Edge({ direction: 'horizontal', position: 200 }),
+    new Edge({ direction: 'vertical', position: 300 }),
+    new Edge({ direction: 'vertical', position: 400 })
+  ]);
 
   expect(body.children).toEqual([
     {
@@ -84,15 +87,17 @@ test('can remove unused guides', () => {
 
   const guides = new Renderer({ document, container: body });
 
-  guides.draw({
-    horizontals: [100, 200],
-    verticals: [300, 400]
-  });
+  guides.draw([
+    new Edge({ direction: 'horizontal', position: 100 }),
+    new Edge({ direction: 'horizontal', position: 200 }),
+    new Edge({ direction: 'vertical', position: 300 }),
+    new Edge({ direction: 'vertical', position: 400 })
+  ]);
 
-  guides.draw({
-    horizontals: [100],
-    verticals: [300]
-  });
+  guides.draw([
+    new Edge({ direction: 'horizontal', position: 100 }),
+    new Edge({ direction: 'vertical', position: 300 })
+  ]);
 
   expect(body.children).toEqual([
     {

@@ -12,11 +12,19 @@ test('can create box', () => {
 test('can get box horizontals', () => {
   const box = new Box({ x: 10, y: 20, width: 30, height: 40 });
 
-  expect(box.horizontals).toEqual([20, 40, 60]);
+  expect(box.horizontals).toEqual([
+    expect.objectContaining({ direction: 'horizontal', position: 20 }),
+    expect.objectContaining({ direction: 'horizontal', position: 40 }),
+    expect.objectContaining({ direction: 'horizontal', position: 60 }),
+  ]);
 });
 
 test('can get box verticals', () => {
   const box = new Box({ x: 10, y: 20, width: 30, height: 40 });
 
-  expect(box.verticals).toEqual([10, 25, 40]);
+  expect(box.verticals).toEqual([
+    expect.objectContaining({ direction: 'vertical', position: 10 }),
+    expect.objectContaining({ direction: 'vertical', position: 25 }),
+    expect.objectContaining({ direction: 'vertical', position: 40 }),
+  ]);
 });
