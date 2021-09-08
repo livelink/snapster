@@ -1,11 +1,4 @@
-export interface BoxInterface {
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
-export default class Box implements BoxInterface {
+export default class Box {
   x: number
   y: number
   width: number
@@ -18,11 +11,11 @@ export default class Box implements BoxInterface {
     this.height = options.height
   }
 
-  get horizontals() {
+  get horizontals(): number[] {
     return this.edges(this.y, this.height)
   }
 
-  get verticals() {
+  get verticals(): number[] {
     return this.edges(this.x, this.width)
   }
 

@@ -1,3 +1,4 @@
+import Box from './box'
 import GridInterface from './interfaces/grid-interface';
 
 export default class Grid {
@@ -9,12 +10,12 @@ export default class Grid {
     this.verticals = [];
   }
 
-  add(box: GridInterface): void {
+  add(box: Box): void {
     this.horizontals.push(...box.horizontals);
     this.verticals.push(...box.verticals);
   }
 
-  matches(box: GridInterface): GridInterface {
+  matches(box: Box): GridInterface {
     const boxHorizontals = box.horizontals;
     const boxVerticals = box.verticals;
 

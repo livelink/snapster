@@ -3,7 +3,7 @@ import DocumentInterface from './interfaces/document-interface';
 import ContainerInterface from './interfaces/container-interface';
 import ElementInterface from './interfaces/element-interface';
 
-export default class Guides {// implements GuidesInterface {
+export default class Renderer {
   document: DocumentInterface;
   container: ContainerInterface;
   classer: (direction: string) => string;

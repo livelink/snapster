@@ -1,28 +1,18 @@
-import BoxInterface from './box';
-
-interface SnapperInterface {
-  horizontals: number[]
-  verticals: number[]
-  threshold?: number
-}
-
-type Snap = {
-  x: number | null,
-  y: number | null
-}
+import Box from './box'
+import PointInterface from './interfaces/point-interface'
 
 export default class Snapper {
   horizontals: number[]
   verticals: number[]
   threshold: number
 
-  constructor(options: SnapperInterface) {
+  constructor(options: { horizontals: number[], verticals: number[], threshold?: number }) {
     this.horizontals = options.horizontals;
     this.verticals = options.verticals;
     this.threshold = options.threshold || 8;
   }
 
-  snap(box: BoxInterface): Snap {
+  snap(box: Box): PointInterface {
     return {
       x: this.find(this.verticals, box.verticals, box.width) || null,
       y: this.find(this.horizontals, box.horizontals, box.height) || null
@@ -30,7 +20,6 @@ export default class Snapper {
   }
 
   private find(edges: number[], boxGrid: number[], extent: number): number | null {
-
     let [start, middle, end] = boxGrid;
 
     return (

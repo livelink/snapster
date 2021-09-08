@@ -15,8 +15,7 @@
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "dist",
-    "types": ["vite/client", "@types/jest"]
+    "outDir": "dist"
   },
   "include": ["./src"]
 }

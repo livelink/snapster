@@ -1,7 +1,7 @@
 import './style.css';
 import Box from './src/box';
 import Grid from './src/grid';
-import Guides from './src/guides';
+import Renderer from './src/renderer';
 import Snapper from './src/snapper';
 
 let drag = null;
@@ -9,7 +9,7 @@ let shiftX;
 let shiftY;
 let grid = null;
 
-const guides = new Guides({ document, container: document.querySelector('.page') });
+const guides = new Renderer({ document, container: document.querySelector('.page') });
 
 document.addEventListener('mousedown', event => {
   const target = event.target;

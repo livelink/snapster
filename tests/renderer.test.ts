@@ -1,4 +1,4 @@
-import Guides from '../src/guides';
+import Renderer from '../src/renderer';
 import ElementInterface from '../src/interfaces/element-interface';
 import ContainerInterface from '../src/interfaces/container-interface';
 import DocumentInterface from '../src/interfaces/document-interface';
@@ -20,7 +20,7 @@ test('can draw guides', () => {
     }
   };
 
-  const guides = new Guides({ document, container: body });
+  const guides = new Renderer({ document, container: body });
 
   guides.draw({
     horizontals: [100, 200],
@@ -82,7 +82,7 @@ test('can remove unused guides', () => {
     }
   };
 
-  const guides = new Guides({ document, container: body });
+  const guides = new Renderer({ document, container: body });
 
   guides.draw({
     horizontals: [100, 200],
