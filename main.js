@@ -39,7 +39,7 @@ document.addEventListener('mousemove', event => {
   box.x = event.pageX - shiftX;
   box.y = event.pageY - shiftY;
 
-  const point = new Snapper({ grid: grid }).snap(box);
+  const point = new Snapper({ grid }).snap(box);
 
   drag.style.left = `${ point.x || box.x }px`;
   drag.style.top = `${ point.y || box.y }px`;

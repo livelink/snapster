@@ -20,7 +20,13 @@ export default class Snapper {
     };
   }
 
-  private snapAxis(edges: Edge[], start: number, middle: number, end: number, extent: number) {
+  private snapAxis(
+    edges: Edge[],
+    start: number,
+    middle: number,
+    end: number,
+    extent: number
+  ): number | null {
     for (let edge of edges) {
       const position = (
         this.snapTo(edge, start, 0) ||
