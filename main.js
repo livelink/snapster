@@ -1,68 +1,54 @@
-import './style.css'
-import Box from './src/box'
-import Edges from './src/edges'
-import Guides from './src/guides'
-import Snapper from './src/snapper'
+import './style.css';
+import Box from './src/box';
+import Grid from './src/grid';
+import Renderer from './src/renderer';
+import Snapper from './src/snapper';
 
-let dragging = null;
+let drag = null;
 let shiftX;
 let shiftY;
-let edges = null;
+let grid = null;
 
-const guides = new Guides({
-  document,
-  container: document.querySelector('.page'),
-  // classer: (direction) => `guide guide--${direction} guide--page`
-});
+const renderer = new Renderer({ document, container: document.querySelector('.page') });
 
 document.addEventListener('mousedown', event => {
   const target = event.target;
+
   if (target.className !== 'box') return;
 
   shiftX = event.pageX - target.offsetLeft;
   shiftY = event.pageY - target.offsetTop;
 
-  edges = new Edges();
+  grid = new Grid();
 
-  for (let element of document.querySelectorAll(`.box:not(#${target.id})`)) {    
-    edges.add(
-      new Box({
-        x: element.offsetLeft, 
-        y: element.offsetTop,
-        width: element.clientWidth, 
-        height: element.clientHeight
-      })
-    );
+  for (let el of document.querySelectorAll(`.box:not(#${target.id})`)) {
+    const { offsetLeft: x, offsetTop: y, clientWidth: width, clientHeight: height } = el
+    grid.add(new Box({ x, y, width, height }));
   };
 
-  dragging = target;
+  drag = target;
 });
 
 document.addEventListener('mousemove', event => {
-  if (!dragging) return;
+  if (!drag) return;
 
-  const box = new Box({
-    x: dragging.offsetLeft, 
-    y: dragging.offsetTop,
-    width: dragging.clientWidth, 
-    height: dragging.clientHeight
-  });
-
-  const matches = edges.matches(box);
+  const { offsetLeft: x, offsetTop: y, clientWidth: width, clientHeight: height } = drag
+  const box = new Box({ x, y, width, height });
+  const matches = grid.matches(box);
 
   box.x = event.pageX - shiftX;
   box.y = event.pageY - shiftY;
 
-  const point = new Snapper({ horizontals: edges.horizontals, verticals: edges.verticals }).snap(box);
+  const point = new Snapper({ grid }).snap(box);
 
-  dragging.style.left = `${ point.x || box.x }px`;
-  dragging.style.top = `${ point.y || box.y }px`;
+  drag.style.left = `${ point.x || box.x }px`;
+  drag.style.top = `${ point.y || box.y }px`;
 
-  guides.draw(matches);
+  renderer.draw(matches);
 });
 
 document.addEventListener('mouseup', event => {
-  if (!dragging) return;
-  dragging = null;
-  guides.draw({ horizontals: [], verticals: [] });
+  if (!drag) return;
+  drag = null;
+  renderer.draw([]);
 });
