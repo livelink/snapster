@@ -1,7 +1,8 @@
+import Edge from './edge';
+
 import DocumentInterface from './interfaces/document-interface';
 import ContainerInterface from './interfaces/container-interface';
 import ElementInterface from './interfaces/element-interface';
-import Edge from './edge';
 
 const positioning = {
   horizontal: { positioner: 'top', clearer: 'left' },

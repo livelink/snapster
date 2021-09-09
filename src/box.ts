@@ -1,4 +1,5 @@
 import Edge from "./edge";
+
 export default class Box {
   x: number;
   y: number;

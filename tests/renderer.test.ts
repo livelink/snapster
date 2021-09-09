@@ -1,8 +1,9 @@
 import Renderer from '../src/renderer';
+import Edge from '../src/edge';
+
 import ElementInterface from '../src/interfaces/element-interface';
 import ContainerInterface from '../src/interfaces/container-interface';
 import DocumentInterface from '../src/interfaces/document-interface';
-import Edge from '../src/edge';
 
 test('can draw guides', () => {
   const document: DocumentInterface = {
