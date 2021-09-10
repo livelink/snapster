@@ -11,7 +11,6 @@ test('can get edges', () => {
     expect.objectContaining({ direction: 'horizontal', position: 200 }),
     expect.objectContaining({ direction: 'horizontal', position: 400 }),
     expect.objectContaining({ direction: 'horizontal', position: 600 }),
-    expect.objectContaining({ direction: 'horizontal', position: 600 }),
     expect.objectContaining({ direction: 'horizontal', position: 1000 }),
     expect.objectContaining({ direction: 'horizontal', position: 1400 }),
     expect.objectContaining({ direction: 'vertical', position: 100 }),
@@ -32,7 +31,6 @@ test('can get horizontal edges', () => {
   expect(grid.horizontals).toEqual([
     expect.objectContaining({ direction: 'horizontal', position: 200 }),
     expect.objectContaining({ direction: 'horizontal', position: 400 }),
-    expect.objectContaining({ direction: 'horizontal', position: 600 }),
     expect.objectContaining({ direction: 'horizontal', position: 600 }),
     expect.objectContaining({ direction: 'horizontal', position: 1000 }),
     expect.objectContaining({ direction: 'horizontal', position: 1400 })

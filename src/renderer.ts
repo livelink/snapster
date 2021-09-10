@@ -19,8 +19,7 @@ export default class Renderer {
     options: {
       document: DocumentInterface,
       container: ContainerInterface,
-      classer?: (direction: string) => string,
-      elements?: ElementInterface[]
+      classer?: (direction: string) => string
     }
   ) {
     this.document = options.document;
@@ -46,6 +45,7 @@ export default class Renderer {
 
   private createElement(): ElementInterface {
     const element = this.document.createElement('div');
+
     this.container.appendChild(element);
     this.elements.push(element);
 

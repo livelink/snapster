@@ -11,17 +11,19 @@ export default class Grid {
   }
 
   add(box: Box): void {
-    this.horizontals.push(...box.horizontals);
-    this.verticals.push(...box.verticals);
+    this.horizontals.push(...this.distinct(box.horizontals, this.horizontals));
+    this.verticals.push(...this.distinct(box.verticals, this.verticals));
   }
 
   get edges(): Edge[] {
     return [...this.horizontals, ...this.verticals];
   }
 
-  matches(box: Box): Edge[] {
-    const edges = box.edges;
+  matches(box: Box) {
+    return this.edges.filter(edge => box.edges.some(compare => compare.is(edge)));
+  }
 
-    return this.edges.filter(edge => edges.some(compare => compare.is(edge)));
+  private distinct(edges: Edge[], existing: Edge[]) {
+    return edges.filter(edge => !existing.some(compare => compare.is(edge)));
   }
 }
