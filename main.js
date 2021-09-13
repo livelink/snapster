@@ -3,6 +3,7 @@ import './style.css';
 // import Grid from './src/grid';
 // import Renderer from './src/renderer';
 // import Snapper from './src/snapper';
+import Snapster from './src/snapster';
 
 // let drag = null;
 // let shiftX;
@@ -62,20 +63,22 @@ let shiftX;
 let shiftY;
 
 document.addEventListener('mousedown', event => {
+  const target = event.target;
   if (target.className !== 'box') return;
 
+  drag = event.target;
   shiftX = event.pageX - target.offsetLeft;
   shiftY = event.pageY - target.offsetTop;
 
   snapster.populate([
     {
-      x: container.offsetLeft,
-      y: container.offsetTop,
+      x: 0,
+      y: 0,
       width: container.clientWidth,
       height: container.clientHeight,
       setup: (guide) => guide.className = 'guide guide--page'
     },
-    ...document.querySelectorAll(`.box:not(#${target.id})`).map(element => ({
+    ...[...document.querySelectorAll(`.box:not(#${target.id})`)].map(element => ({
       x: element.offsetLeft,
       y: element.offsetTop,
       width: element.clientWidth,
@@ -88,22 +91,25 @@ document.addEventListener('mousedown', event => {
 document.addEventListener('mousemove', event => {
   if (!drag) return;
 
-  const target = event.target;
+  drag.style.left = `${event.pageX - shiftX}px`;
+  drag.style.top = `${event.pageY - shiftY}px`;
 
   const position = snapster.snap({
-    x: target.offsetLeft,
-    y: target.offsetTop,
-    width: target.clientWidth,
-    height: target.clientHeight
+    x: drag.offsetLeft,
+    y: drag.offsetTop,
+    width: drag.clientWidth,
+    height: drag.clientHeight
   });
 
-  target.style.left = position.x;
-  target.style.top = position.y;
+  drag.style.left = `${position.x}px`;
+  drag.style.top = `${position.y}px`;
 });
 
 document.addEventListener('mouseup', event => {
   if (!drag) return;
   drag = null;
+  shiftX = null;
+  shiftY = null;
 
   snapster.clear();
 });

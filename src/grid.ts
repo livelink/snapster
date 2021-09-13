@@ -1,5 +1,5 @@
 import Edge from './edge';
-import Box from './box'
+import Box from './box';
 
 export default class Grid {
   horizontals: Edge[]
@@ -13,6 +13,11 @@ export default class Grid {
   add(box: Box): void {
     this.horizontals.push(...this.distinct(box.horizontals, this.horizontals));
     this.verticals.push(...this.distinct(box.verticals, this.verticals));
+  }
+
+  clear = (): void => {
+    this.horizontals = [];
+    this.verticals = [];
   }
 
   get edges(): Edge[] {

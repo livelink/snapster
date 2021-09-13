@@ -29,13 +29,24 @@ export default class Snapster {
   }
 
   populate(boxes: PopulateInterface[]): void {
+    this.grid.clear();
     for (const box of boxes) this.grid.add(new Box(box));
   }
 
   snap(box: PopulateInterface): PointInterface {
     const position = this.snapper.snap(new Box(box));
-    this.renderer.draw(this.grid.edges);
+
+    this.renderer.draw(this.grid.matches(new Box({
+      x: position.x === null ? box.x : position.x,
+      y: position.y === null ? box.y : position.y,
+      width: box.width,
+      height: box.height
+    })));
 
     return position;
+  }
+
+  clear() {
+    this.renderer.draw([]);
   }
 }

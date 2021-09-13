@@ -28,15 +28,16 @@ export default class Snapper {
     extent: number
   ): number | null {
     for (let edge of edges) {
-      const position = (
-        this.snapTo(edge, start, 0) ||
-        this.snapTo(edge, middle, extent / 2) ||
-        this.snapTo(edge, end, extent)
-      );
-      
-      if (position) return position;
+      const startMatch = this.snapTo(edge, start, 0);
+      if (startMatch !== null) return startMatch;
+
+      const middleMatch = this.snapTo(edge, middle, extent / 2);
+      if (middleMatch !== null) return middleMatch;
+
+      const endMatch = this.snapTo(edge, end, extent);
+      if (endMatch !== null) return endMatch;
     }
-    
+
     return null;
   }
 

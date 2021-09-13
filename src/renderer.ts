@@ -53,8 +53,9 @@ export default class Renderer {
   }
 
   private removeGuidesFrom(start: number): void {
-    this.elements.splice(start).forEach(element => {
+    const spliced = this.elements.splice(start)
+    for (const element of spliced) {
       this.container.removeChild(element);
-    });
+    }
   }
 }

@@ -22,6 +22,16 @@ test('can get edges', () => {
   ]);
 });
 
+test('can clear edges', () => {
+  const grid = new Grid();
+
+  grid.add(new Box({ x: 100, y: 200, width: 300, height: 400 }));
+
+  grid.clear();
+
+  expect(grid.edges).toEqual([]);
+});
+
 test('can get horizontal edges', () => {
   const grid = new Grid();
 
