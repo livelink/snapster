@@ -56,7 +56,15 @@ import Snapster from './src/snapster';
 
 
 const container = document.querySelector('.page');
-const snapster = new Snapster({ document, container, threshold: 8 });
+
+const snapster = new Snapster({
+  document,
+  container,
+  threshold: 8,
+  setup: (element, edge) => {
+    element.className = `guide guide--${edge.type} guide--${edge.direction}`;
+  }
+});
 
 let drag = null;
 let shiftX;
@@ -76,14 +84,14 @@ document.addEventListener('mousedown', event => {
       y: 0,
       width: container.clientWidth,
       height: container.clientHeight,
-      setup: (guide) => guide.className = 'guide guide--page'
+      type: 'page'
     },
     ...[...document.querySelectorAll(`.box:not(#${target.id})`)].map(element => ({
       x: element.offsetLeft,
       y: element.offsetTop,
       width: element.clientWidth,
       height: element.clientHeight,
-      setup: (guide) => guide.className = 'guide'
+      type: 'normal'
     }))
   ]);
 });

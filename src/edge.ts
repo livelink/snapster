@@ -1,20 +1,18 @@
-import ElementInterface from './interfaces/element-interface';
-
 export default class Edge {
   direction: string;
   position: number;
-  setup?: (element: ElementInterface) => void
+  type?: string
 
   constructor(
     options: {
       direction: string,
       position: number,
-      setup?: (element: ElementInterface) => void
+      type?: string
     }
   ) {
     this.direction = options.direction;
     this.position = options.position;
-    this.setup = options.setup;
+    this.type = options.type;
   }
 
   is(edge: Edge): boolean {

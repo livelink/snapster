@@ -10,7 +10,7 @@ export default class Grid {
     this.verticals = [];
   }
 
-  add(box: Box): void {
+  add(box: Box, options?: { type?: string }): void {
     this.horizontals.push(...this.distinct(box.horizontals, this.horizontals));
     this.verticals.push(...this.distinct(box.verticals, this.verticals));
   }
@@ -24,7 +24,7 @@ export default class Grid {
     return [...this.horizontals, ...this.verticals];
   }
 
-  matches(box: Box) {
+  matches(box: Box): Edge[] {
     return this.edges.filter(edge => box.edges.some(compare => compare.is(edge)));
   }
 

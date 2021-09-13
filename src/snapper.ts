@@ -15,8 +15,8 @@ export default class Snapper {
 
   snap(box: Box): PointInterface {
     return {
-      x: this.snapAxis(this.grid.verticals, box.left, box.center, box.right, box.width),
-      y: this.snapAxis(this.grid.horizontals, box.top, box.middle, box.bottom, box.height)
+      x: this.snapAxis(this.grid.verticals, box.left, box.center, box.right, box.width, box.x),
+      y: this.snapAxis(this.grid.horizontals, box.top, box.middle, box.bottom, box.height, box.y)
     };
   }
 
@@ -25,26 +25,28 @@ export default class Snapper {
     start: number,
     middle: number,
     end: number,
-    extent: number
-  ): number | null {
+    extent: number,
+    fallback: number
+  ): number {
     for (let edge of edges) {
-      const startMatch = this.snapTo(edge, start, 0);
-      if (startMatch !== null) return startMatch;
+      const startMatch = this.snapTo(edge, start, 0, fallback);
+      if (startMatch !== fallback) return startMatch;
 
-      const middleMatch = this.snapTo(edge, middle, extent / 2);
-      if (middleMatch !== null) return middleMatch;
+      const middleMatch = this.snapTo(edge, middle, extent / 2, fallback);
+      if (middleMatch !== fallback) return middleMatch;
 
-      const endMatch = this.snapTo(edge, end, extent);
-      if (endMatch !== null) return endMatch;
+      const endMatch = this.snapTo(edge, end, extent, fallback);
+      if (endMatch !== fallback) return endMatch;
     }
 
-    return null;
+    return fallback;
   }
 
-  private snapTo(edge: Edge, position: number, offset: number): number | null {
-    return (
-      edge.position - this.threshold < position &&
-      edge.position + this.threshold > position
-    ) ? edge.position - offset : null;
+  private snapTo(edge: Edge, position: number, offset: number, fallback: number): number {
+    return this.snappable(edge.position, position) ? edge.position - offset : fallback;
+  }
+
+  private snappable(compare: number, position: number): boolean {
+    return compare - this.threshold < position && compare + this.threshold > position;
   }
 }

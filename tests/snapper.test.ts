@@ -10,7 +10,7 @@ describe('single edges', () => {
     const snapper = new Snapper({ grid: grid });
     const box = new Box({ x: 305, y: 400, width: 100, height: 200 });
 
-    expect(snapper.snap(box)).toEqual({ x: 300, y: null });
+    expect(snapper.snap(box)).toEqual({ x: 300, y: 400 });
   });
 
   test('can snap box to center edge', () => {
@@ -20,7 +20,7 @@ describe('single edges', () => {
     const snapper = new Snapper({ grid: grid });
     const box = new Box({ x: 155, y: 400, width: 100, height: 120 });
 
-    expect(snapper.snap(box)).toEqual({ x: 150, y: null });
+    expect(snapper.snap(box)).toEqual({ x: 150, y: 400 });
   });
 
   test('can snap box to right edge', () => {
@@ -30,7 +30,7 @@ describe('single edges', () => {
     const snapper = new Snapper({ grid: grid });
     const box = new Box({ x: 195, y: 400, width: 100, height: 120 });
 
-    expect(snapper.snap(box)).toEqual({ x: 200, y: null });
+    expect(snapper.snap(box)).toEqual({ x: 200, y: 400 });
   });
 
   test('can snap box to top edge', () => {
@@ -40,7 +40,7 @@ describe('single edges', () => {
     const snapper = new Snapper({ grid: grid });
     const box = new Box({ x: 400, y: 305, width: 100, height: 120 });
 
-    expect(snapper.snap(box)).toEqual({ x: null, y: 300 });
+    expect(snapper.snap(box)).toEqual({ x: 400, y: 300 });
   });
 
   test('can snap box to middle edge', () => {
@@ -50,7 +50,7 @@ describe('single edges', () => {
     const snapper = new Snapper({ grid: grid });
     const box = new Box({ x: 400, y: 145, width: 100, height: 120 });
 
-    expect(snapper.snap(box)).toEqual({ x: null, y: 140 });
+    expect(snapper.snap(box)).toEqual({ x: 400, y: 140 });
   });
 
   test('can snap box to bottom edge', () => {
@@ -60,7 +60,7 @@ describe('single edges', () => {
     const snapper = new Snapper({ grid: grid });
     const box = new Box({ x: 400, y: 185, width: 100, height: 120 });
 
-    expect(snapper.snap(box)).toEqual({ x: null, y: 180 });
+    expect(snapper.snap(box)).toEqual({ x: 400, y: 180 });
   });
 });
 
