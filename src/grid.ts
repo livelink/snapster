@@ -10,7 +10,7 @@ export default class Grid {
     this.verticals = [];
   }
 
-  add(box: Box, options?: { type?: string }): void {
+  add(box: Box): void {
     this.horizontals.push(...this.distinct(box.horizontals, this.horizontals));
     this.verticals.push(...this.distinct(box.verticals, this.verticals));
   }

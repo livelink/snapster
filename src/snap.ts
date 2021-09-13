@@ -4,7 +4,7 @@ import Grid from './grid';
 
 import PointInterface from './interfaces/point-interface'
 
-export default class Snapper {
+export default class Snap {
   grid: Grid;
   threshold: number;
 
@@ -13,7 +13,7 @@ export default class Snapper {
     this.threshold = options.threshold || 8;
   }
 
-  snap(box: Box): PointInterface {
+  to(box: Box): PointInterface {
     return {
       x: this.snapAxis(this.grid.verticals, box.left, box.center, box.right, box.width, box.x),
       y: this.snapAxis(this.grid.horizontals, box.top, box.middle, box.bottom, box.height, box.y)
@@ -29,20 +29,20 @@ export default class Snapper {
     fallback: number
   ): number {
     for (let edge of edges) {
-      const startMatch = this.snapTo(edge, start, 0, fallback);
+      const startMatch = this.snapped(edge, start, 0, fallback);
       if (startMatch !== fallback) return startMatch;
 
-      const middleMatch = this.snapTo(edge, middle, extent / 2, fallback);
+      const middleMatch = this.snapped(edge, middle, extent / 2, fallback);
       if (middleMatch !== fallback) return middleMatch;
 
-      const endMatch = this.snapTo(edge, end, extent, fallback);
+      const endMatch = this.snapped(edge, end, extent, fallback);
       if (endMatch !== fallback) return endMatch;
     }
 
     return fallback;
   }
 
-  private snapTo(edge: Edge, position: number, offset: number, fallback: number): number {
+  private snapped(edge: Edge, position: number, offset: number, fallback: number): number {
     return this.snappable(edge.position, position) ? edge.position - offset : fallback;
   }
 

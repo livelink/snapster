@@ -1,7 +1,7 @@
 
 import Grid from './grid'
 import Box from './box'
-import Snapper from './snapper';
+import Snap from './snap';
 import Renderer from './renderer';
 import Edge from './edge';
 
@@ -13,7 +13,7 @@ import PointInterface from './interfaces/point-interface';
 
 export default class Snapster {
   private grid: Grid;
-  private snapper: Snapper;
+  private snapping: Snap;
   private renderer: Renderer;
 
   constructor(
@@ -25,7 +25,7 @@ export default class Snapster {
     }
   ) {
     this.grid = new Grid();
-    this.snapper = new Snapper({ grid: this.grid, threshold: options.threshold || 8 });
+    this.snapping = new Snap({ grid: this.grid, threshold: options.threshold || 8 });
     this.renderer = new Renderer(
       {
         document: options.document,
@@ -37,17 +37,18 @@ export default class Snapster {
 
   populate(boxes: PopulateInterface[]): void {
     this.grid.clear();
-    for (const box of boxes) this.grid.add(new Box(box), { type: box.type });
+    for (const box of boxes) this.grid.add(new Box(box));
   }
 
   snap(box: PopulateInterface): PointInterface {
-    const position = this.snapper.snap(new Box(box));
+    const position = this.snapping.to(new Box(box));
 
     this.renderer.draw(this.grid.matches(new Box({
       x: position.x === null ? box.x : position.x,
       y: position.y === null ? box.y : position.y,
       width: box.width,
-      height: box.height
+      height: box.height,
+      type: box.type
     })));
 
     return position;

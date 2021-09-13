@@ -5,12 +5,20 @@ export default class Box {
   y: number;
   width: number;
   height: number;
+  type?: string;
 
-  constructor(options: { x: number, y: number, width: number, height: number }) {
+  constructor( options: {
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      type?: string
+    }) {
     this.x = options.x;
     this.y = options.y;
     this.width = options.width;
     this.height = options.height;
+    this.type = options.type;
   }
 
   get top() {
@@ -39,17 +47,17 @@ export default class Box {
 
   get horizontals(): Edge[] {
     return [
-      new Edge({ direction: 'horizontal', position: this.top }),
-      new Edge({ direction: 'horizontal', position: this.middle }),
-      new Edge({ direction: 'horizontal', position: this.bottom })
+      new Edge({ direction: 'horizontal', position: this.top, type: this.type }),
+      new Edge({ direction: 'horizontal', position: this.middle, type: this.type }),
+      new Edge({ direction: 'horizontal', position: this.bottom, type: this.type })
     ];
   }
 
   get verticals(): Edge[] {
     return [
-      new Edge({ direction: 'vertical', position: this.left }),
-      new Edge({ direction: 'vertical', position: this.center }),
-      new Edge({ direction: 'vertical', position: this.right })
+      new Edge({ direction: 'vertical', position: this.left, type: this.type }),
+      new Edge({ direction: 'vertical', position: this.center, type: this.type }),
+      new Edge({ direction: 'vertical', position: this.right, type: this.type })
     ];
   }
 
