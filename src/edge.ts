@@ -1,10 +1,18 @@
 export default class Edge {
   direction: string;
   position: number;
+  type?: string
 
-  constructor(options: { direction: string, position: number }) {
+  constructor(
+    options: {
+      direction: string,
+      position: number,
+      type?: string
+    }
+  ) {
     this.direction = options.direction;
     this.position = options.position;
+    this.type = options.type;
   }
 
   is(edge: Edge): boolean {

@@ -12,20 +12,19 @@ const positioning = {
 export default class Renderer {
   document: DocumentInterface;
   container: ContainerInterface;
-  classer: (direction: string) => string;
   elements: ElementInterface[];
+  private setup: (element: ElementInterface, edge: Edge) => void;
 
   constructor(
     options: {
       document: DocumentInterface,
       container: ContainerInterface,
-      classer?: (direction: string) => string,
-      elements?: ElementInterface[]
+      setup: (element: ElementInterface, edge: Edge) => void
     }
   ) {
     this.document = options.document;
     this.container = options.container;
-    this.classer = options.classer || ((direction: string) => `guide guide--${direction}`);
+    this.setup = options.setup;
     this.elements = [];
   }
 
@@ -35,7 +34,8 @@ export default class Renderer {
     for (const edge of edges) {
       const element: ElementInterface = this.elements[count] || this.createElement();
       const lookup = positioning[edge.direction];
-      element.className = this.classer(edge.direction);
+
+      this.setup(element, edge);
       element.style[lookup.positioner] = `${edge.position}px`;
       element.style[lookup.clearer] = null;
       count++;
@@ -46,6 +46,7 @@ export default class Renderer {
 
   private createElement(): ElementInterface {
     const element = this.document.createElement('div');
+
     this.container.appendChild(element);
     this.elements.push(element);
 
@@ -53,8 +54,9 @@ export default class Renderer {
   }
 
   private removeGuidesFrom(start: number): void {
-    this.elements.splice(start).forEach(element => {
+    const spliced = this.elements.splice(start)
+    for (const element of spliced) {
       this.container.removeChild(element);
-    });
+    }
   }
 }

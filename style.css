@@ -16,21 +16,24 @@ div {
 }
 
 .guide {
-  background: purple;
   position: absolute;
   pointer-events: none;
 }
 
 .guide--horizontal {
- right: 0;
- left: 0;
- height: 1px;
+  right: 0;
+  left: 0;
+  height: 1px;
 }
 
 .guide--vertical {
   top: 0;
   bottom: 0;
   width: 1px;
+}
+
+.guide--normal {
+  background: purple;
 }
 
 .guide--page {

@@ -11,7 +11,6 @@ test('can get edges', () => {
     expect.objectContaining({ direction: 'horizontal', position: 200 }),
     expect.objectContaining({ direction: 'horizontal', position: 400 }),
     expect.objectContaining({ direction: 'horizontal', position: 600 }),
-    expect.objectContaining({ direction: 'horizontal', position: 600 }),
     expect.objectContaining({ direction: 'horizontal', position: 1000 }),
     expect.objectContaining({ direction: 'horizontal', position: 1400 }),
     expect.objectContaining({ direction: 'vertical', position: 100 }),
@@ -23,6 +22,16 @@ test('can get edges', () => {
   ]);
 });
 
+test('can clear edges', () => {
+  const grid = new Grid();
+
+  grid.add(new Box({ x: 100, y: 200, width: 300, height: 400 }));
+
+  grid.clear();
+
+  expect(grid.edges).toEqual([]);
+});
+
 test('can get horizontal edges', () => {
   const grid = new Grid();
 
@@ -32,7 +41,6 @@ test('can get horizontal edges', () => {
   expect(grid.horizontals).toEqual([
     expect.objectContaining({ direction: 'horizontal', position: 200 }),
     expect.objectContaining({ direction: 'horizontal', position: 400 }),
-    expect.objectContaining({ direction: 'horizontal', position: 600 }),
     expect.objectContaining({ direction: 'horizontal', position: 600 }),
     expect.objectContaining({ direction: 'horizontal', position: 1000 }),
     expect.objectContaining({ direction: 'horizontal', position: 1400 })

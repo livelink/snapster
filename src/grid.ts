@@ -1,5 +1,5 @@
 import Edge from './edge';
-import Box from './box'
+import Box from './box';
 
 export default class Grid {
   horizontals: Edge[]
@@ -11,8 +11,13 @@ export default class Grid {
   }
 
   add(box: Box): void {
-    this.horizontals.push(...box.horizontals);
-    this.verticals.push(...box.verticals);
+    this.horizontals.push(...this.distinct(box.horizontals, this.horizontals));
+    this.verticals.push(...this.distinct(box.verticals, this.verticals));
+  }
+
+  clear = (): void => {
+    this.horizontals = [];
+    this.verticals = [];
   }
 
   get edges(): Edge[] {
@@ -20,8 +25,10 @@ export default class Grid {
   }
 
   matches(box: Box): Edge[] {
-    const edges = box.edges;
+    return this.edges.filter(edge => box.edges.some(compare => compare.is(edge)));
+  }
 
-    return this.edges.filter(edge => edges.some(compare => compare.is(edge)));
+  private distinct(edges: Edge[], existing: Edge[]) {
+    return edges.filter(edge => !existing.some(compare => compare.is(edge)));
   }
 }

@@ -22,7 +22,11 @@ test('can draw guides', () => {
     }
   };
 
-  const guides = new Renderer({ document, container: body });
+  const guides = new Renderer({
+    document,
+    container: body,
+    setup: (element, edge) => element.className = `guide guide--${edge.direction}`
+  });
 
   guides.draw([
     new Edge({ direction: 'horizontal', position: 100 }),
@@ -86,7 +90,11 @@ test('can remove unused guides', () => {
     }
   };
 
-  const guides = new Renderer({ document, container: body });
+  const guides = new Renderer({
+    document,
+    container: body,
+    setup: (element, edge) => element.className = `guide guide--${edge.direction}`
+  });
 
   guides.draw([
     new Edge({ direction: 'horizontal', position: 100 }),
