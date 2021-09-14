@@ -141,3 +141,138 @@ test('can clear snaps', () => {
 
   expect(body.children).toEqual([]);
 });
+
+it('can take a custom setup', () => {
+  const document: DocumentInterface = {
+    createElement(tagName: string) {
+      return { tagName, className: '', style: {} };
+    }
+  };
+
+  const body: ContainerInterface = {
+    children: [],
+    appendChild(child: ElementInterface) { this.children.push(child); },
+    removeChild(child: ElementInterface) {
+      this.children = this.children.filter(existing => existing === child);
+    }
+  };
+
+  const snapster = new Snapster({
+    document,
+    container: body,
+    setup: ({ element, edge }) => element.className = `my-${edge.type}-${edge.direction}`
+  });
+  
+  snapster.populate([{
+    x: 100,
+    y: 200,
+    width: 500,
+    height: 600,
+    type: 'custom'    
+  }]);
+  snapster.snap({ x: 101, y: 201, width: 300, height: 400 });
+
+  expect(body.children).toEqual([
+    {
+      tagName: 'div',
+      className: 'my-custom-horizontal',
+      style: { top: '200px', left: null }
+    },
+    {
+      tagName: 'div',
+      className: 'my-custom-vertical',
+      style: { left: '100px', top: null }
+    }
+  ]);
+
+});
+
+it('can take a custom positioner', () => {
+  const document: DocumentInterface = {
+    createElement(tagName: string) {
+      return { tagName, className: '', style: {} };
+    }
+  };
+
+  const body: ContainerInterface = {
+    children: [],
+
+    appendChild(child: ElementInterface) {
+      this.children.push(child);
+    },
+
+    removeChild(child: ElementInterface) {
+      this.children = this.children.filter((existing: ElementInterface) => existing !== child);
+    }
+  };
+
+  const snapster = new Snapster({
+    document,
+    container: body,
+    positioner: ({ element, edge }) => {
+      element.style[edge.direction === 'horizontal' ? 'top' : 'left'] = `${edge.position * 2}px`;
+    }
+  });
+
+  snapster.populate([{ x: 100, y: 200, width: 300, height: 400 }]);
+  snapster.snap({ x: 101, y: 201, width: 500, height: 600 });
+
+  expect(body.children).toEqual([
+    {
+      tagName: 'div',
+      className: 'guide guide--horizontal',
+      style: { top: '400px', left: null, }
+    },
+    {
+      tagName: 'div',
+      className: 'guide guide--vertical',
+      style: { left: '200px', top: null, }
+    }
+  ]);
+});
+
+it('can take a custom reset', () => {
+  const document: DocumentInterface = {
+    createElement(tagName: string) {
+      return { tagName, className: '', style: {} };
+    }
+  };
+
+  const body: ContainerInterface = {
+    children: [],
+
+    appendChild(child: ElementInterface) {
+      this.children.push(child);
+    },
+
+    removeChild(child: ElementInterface) {
+      this.children = this.children.filter((existing: ElementInterface) => existing !== child);
+    }
+  };
+
+  const snapster = new Snapster({
+    document,
+    container: body,
+    reset: ({ element }) => {
+      element.className += " inactive";
+      element.style.top = null;
+      element.style.left = null;
+    }
+  });
+
+  snapster.populate([{ x: 100, y: 200, width: 300, height: 400 }]);
+  snapster.snap({ x: 101, y: 201, width: 500, height: 600 });
+
+  expect(body.children).toEqual([
+    {
+      tagName: 'div',
+      className: 'guide guide--horizontal inactive',
+      style: { top: '200px', left: null, }
+    },
+    {
+      tagName: 'div',
+      className: 'guide guide--vertical inactive',
+      style: { left: '100px', top: null, }
+    }
+  ]);
+});
