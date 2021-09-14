@@ -2,13 +2,7 @@ import './style.css';
 import Snapster from './src/snapster';
 
 const container = document.querySelector('.page');
-
-const snapster = new Snapster({
-  document,
-  container,
-  threshold: 8,
-  scale: 1
-});
+const snapster = new Snapster({ document, container });
 
 let drag = null;
 let shiftX;
