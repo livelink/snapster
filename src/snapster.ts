@@ -30,7 +30,9 @@ export default class Snapster {
       {
         document: options.document,
         container: options.container,
-        setup: options.setup || ((element, edge) => element.className = `guide guide--${edge.direction}`)
+        setup: options.setup || ((element, edge) => {
+          element.className = `guide guide--${edge.direction}`;
+        })
       }
     );
   }
