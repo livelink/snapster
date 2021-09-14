@@ -9,7 +9,7 @@ test('can snap', () => {
     createElement(tagName: string) { return { tagName, className: '', style: {} }; }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
     appendChild(child: ElementInterface) { this.children.push(child); },
     removeChild(child: ElementInterface) {
@@ -17,7 +17,7 @@ test('can snap', () => {
     }
   };
 
-  const snapster = new Snapster({ document: document, container: body });
+  const snapster = new Snapster({ document: document, container });
 
   snapster.populate([{ x: 100, y: 200, width: 300, height: 400 }]);
 
@@ -44,7 +44,7 @@ test('can snap with scale', () => {
     createElement(tagName: string) { return { tagName, className: '', style: {} }; }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
     appendChild(child: ElementInterface) { this.children.push(child); },
     removeChild(child: ElementInterface) {
@@ -54,7 +54,7 @@ test('can snap with scale', () => {
 
   const snapster = new Snapster({
     document: document,
-    container: body,
+    container,
     positioner: ({ element, edge }) => {
       const position = edge.position * 0.3;
 
@@ -89,7 +89,7 @@ test('can clear previous guides', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
     appendChild(child: ElementInterface) { this.children.push(child); },
     removeChild(child: ElementInterface) {
@@ -97,7 +97,7 @@ test('can clear previous guides', () => {
     }
   };
 
-  const snapster = new Snapster({ document: document, container: body });
+  const snapster = new Snapster({ document: document, container });
 
   snapster.populate([{ x: 49, y: 149, width: 300, height: 400 }]);
   snapster.snap({ x: 50, y: 150, width: 500, height: 600 });
@@ -125,7 +125,7 @@ test('can clear snaps', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
     appendChild(child: ElementInterface) { this.children.push(child); },
     removeChild(child: ElementInterface) {
@@ -133,7 +133,7 @@ test('can clear snaps', () => {
     }
   };
 
-  const snapster = new Snapster({ document: document, container: body });
+  const snapster = new Snapster({ document: document, container });
 
   snapster.populate([{ x: 100, y: 200, width: 300, height: 400 }]);
   snapster.snap({ x: 101, y: 201, width: 300, height: 400 });
@@ -149,7 +149,7 @@ it('can take a custom setup', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
     appendChild(child: ElementInterface) { this.children.push(child); },
     removeChild(child: ElementInterface) {
@@ -159,16 +159,16 @@ it('can take a custom setup', () => {
 
   const snapster = new Snapster({
     document,
-    container: body,
+    container,
     setup: ({ element, edge }) => element.className = `my-${edge.type}-${edge.direction}`
   });
-  
+
   snapster.populate([{
     x: 100,
     y: 200,
     width: 500,
     height: 600,
-    type: 'custom'    
+    type: 'custom'
   }]);
   snapster.snap({ x: 101, y: 201, width: 300, height: 400 });
 
@@ -194,7 +194,7 @@ it('can take a custom positioner', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -208,7 +208,7 @@ it('can take a custom positioner', () => {
 
   const snapster = new Snapster({
     document,
-    container: body,
+    container,
     positioner: ({ element, edge }) => {
       element.style[edge.direction === 'horizontal' ? 'top' : 'left'] = `${edge.position * 2}px`;
     }
@@ -238,7 +238,7 @@ it('can take a custom reset', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -252,7 +252,7 @@ it('can take a custom reset', () => {
 
   const snapster = new Snapster({
     document,
-    container: body,
+    container,
     reset: ({ element }) => {
       element.className += " inactive";
       element.style.top = null;

@@ -12,7 +12,7 @@ test('can draw guides', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
     appendChild(child: ElementInterface) {
       this.children.push(child);
@@ -24,7 +24,7 @@ test('can draw guides', () => {
 
   const renderer = new Renderer({
     document,
-    container: body
+    container
   });
 
   renderer.draw([
@@ -77,7 +77,7 @@ test('can have custom positioning guides', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
     appendChild(child: ElementInterface) {
       this.children.push(child);
@@ -89,7 +89,7 @@ test('can have custom positioning guides', () => {
 
   const renderer = new Renderer({
     document,
-    container: body,
+    container,
     positioner: options => {
       const { element, edge } = options;
       const position = edge.position * 0.3;
@@ -148,7 +148,7 @@ it('adds edges with defaut classes', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -160,7 +160,7 @@ it('adds edges with defaut classes', () => {
     }
   };
 
-  const renderer = new Renderer({ document, container: body });
+  const renderer = new Renderer({ document, container });
 
   renderer.draw([
     new Edge({ direction: 'horizontal', position: 100 }),
@@ -188,7 +188,7 @@ it('adds edge type when supplied by default', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -200,7 +200,7 @@ it('adds edge type when supplied by default', () => {
     }
   };
 
-  const renderer = new Renderer({ document, container: body });
+  const renderer = new Renderer({ document, container });
 
   renderer.draw([
     new Edge({ direction: 'horizontal', position: 100, type: 'page' }),
@@ -228,7 +228,7 @@ test('can remove unused guides', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -242,7 +242,7 @@ test('can remove unused guides', () => {
 
   const renderer = new Renderer({
     document,
-    container: body
+    container
   });
 
   renderer.draw([
@@ -284,7 +284,7 @@ it('can take a custom setup', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -298,7 +298,7 @@ it('can take a custom setup', () => {
 
   const renderer = new Renderer({
     document,
-    container: body,
+    container,
     setup: ({ element, edge }) => element.className = `my-${edge.type}-${edge.direction}`
   });
 
@@ -328,7 +328,7 @@ it('can take a custom positioner', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -342,7 +342,7 @@ it('can take a custom positioner', () => {
 
   const renderer = new Renderer({
     document,
-    container: body,
+    container,
     positioner: ({ element, edge }) => {
       element.style[edge.direction === 'horizontal' ? 'top' : 'left'] = `${edge.position * 2}px`;
     }
@@ -374,7 +374,7 @@ it('can take a custom reset', () => {
     }
   };
 
-  const body: ContainerInterface = {
+  const container: ContainerInterface = {
     children: [],
 
     appendChild(child: ElementInterface) {
@@ -388,7 +388,7 @@ it('can take a custom reset', () => {
 
   const renderer = new Renderer({
     document,
-    container: body,
+    container,
     reset: ({ element }) => {
       element.className += " inactive";
       element.style.top = null;
