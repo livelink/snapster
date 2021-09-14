@@ -34,7 +34,7 @@ test('can draw guides', () => {
     new Edge({ direction: 'vertical', position: 400 })
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -105,7 +105,7 @@ test('can have custom positioning guides', () => {
     new Edge({ direction: 'vertical', position: 455 })
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -167,7 +167,7 @@ it('adds edges with defaut classes', () => {
     new Edge({ direction: 'vertical', position: 300 }),
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -207,7 +207,7 @@ it('adds edge type when supplied by default', () => {
     new Edge({ direction: 'vertical', position: 300, type: 'normal' }),
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal guide--page',
@@ -257,7 +257,7 @@ test('can remove unused guides', () => {
     new Edge({ direction: 'vertical', position: 300 })
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -307,7 +307,7 @@ it('can take a custom setup', () => {
     new Edge({ direction: 'vertical', position: 300, type: 'normal' }),
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'my-page-horizontal',
@@ -353,7 +353,7 @@ it('can take a custom positioner', () => {
     new Edge({ direction: 'vertical', position: 300 }),
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -401,7 +401,7 @@ it('can take a custom reset', () => {
     new Edge({ direction: 'vertical', position: 300 }),
   ]);
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal inactive',

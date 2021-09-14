@@ -25,7 +25,7 @@ test('can snap', () => {
 
   expect(position).toEqual({ x: 100, y: 200 });
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -68,7 +68,7 @@ test('can snap with scale', () => {
 
   expect(position).toEqual({ x: 100, y: 200 });
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -104,7 +104,7 @@ test('can clear previous guides', () => {
   snapster.populate([{ x: 51, y: 151, width: 300, height: 400 }]);
   snapster.snap({ x: 50, y: 150, width: 500, height: 600 });
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       className: 'guide guide--horizontal',
       style: { left: null, top: '151px' },
@@ -139,7 +139,7 @@ test('can clear snaps', () => {
   snapster.snap({ x: 101, y: 201, width: 300, height: 400 });
   snapster.clear();
 
-  expect(body.children).toEqual([]);
+  expect(container.children).toEqual([]);
 });
 
 it('can take a custom setup', () => {
@@ -172,7 +172,7 @@ it('can take a custom setup', () => {
   }]);
   snapster.snap({ x: 101, y: 201, width: 300, height: 400 });
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'my-custom-horizontal',
@@ -217,7 +217,7 @@ it('can take a custom positioner', () => {
   snapster.populate([{ x: 100, y: 200, width: 300, height: 400 }]);
   snapster.snap({ x: 101, y: 201, width: 500, height: 600 });
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal',
@@ -263,7 +263,7 @@ it('can take a custom reset', () => {
   snapster.populate([{ x: 100, y: 200, width: 300, height: 400 }]);
   snapster.snap({ x: 101, y: 201, width: 500, height: 600 });
 
-  expect(body.children).toEqual([
+  expect(container.children).toEqual([
     {
       tagName: 'div',
       className: 'guide guide--horizontal inactive',
