@@ -7,13 +7,13 @@ export default class Box {
   height: number;
   type?: string;
 
-  constructor( options: {
-      x: number,
-      y: number,
-      width: number,
-      height: number,
-      type?: string
-    }) {
+  constructor(options: {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    type?: string
+  }) {
     this.x = options.x;
     this.y = options.y;
     this.width = options.width;

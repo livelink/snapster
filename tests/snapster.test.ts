@@ -39,6 +39,49 @@ test('can snap', () => {
   ]);
 });
 
+test('can snap with scale', () => {
+  const document: DocumentInterface = {
+    createElement(tagName: string) { return { tagName, className: '', style: {} }; }
+  };
+
+  const body: ContainerInterface = {
+    children: [],
+    appendChild(child: ElementInterface) { this.children.push(child); },
+    removeChild(child: ElementInterface) {
+      this.children = this.children.filter(existing => existing === child);
+    }
+  };
+
+  const snapster = new Snapster({
+    document: document,
+    container: body,
+    positioner: ({ element, edge }) => {
+      const position = edge.position * 0.3;
+
+      element.style[edge.direction === 'horizontal' ? 'top' : 'left'] = `${position}px`;
+    }
+  });
+
+  snapster.populate([{ x: 100, y: 200, width: 300, height: 400 }]);
+
+  const position = snapster.snap({ x: 101, y: 201, width: 500, height: 600 });
+
+  expect(position).toEqual({ x: 100, y: 200 });
+
+  expect(body.children).toEqual([
+    {
+      tagName: 'div',
+      className: 'guide guide--horizontal',
+      style: { top: '60px', left: null }
+    },
+    {
+      tagName: 'div',
+      className: 'guide guide--vertical',
+      style: { left: '30px', top: null }
+    }
+  ]);
+});
+
 test('can clear previous guides', () => {
   const document: DocumentInterface = {
     createElement(tagName: string) {
@@ -97,4 +140,4 @@ test('can clear snaps', () => {
   snapster.clear();
 
   expect(body.children).toEqual([]);
- })
+});

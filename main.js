@@ -7,9 +7,7 @@ const snapster = new Snapster({
   document,
   container,
   threshold: 8,
-  setup: (element, edge) => {
-    element.className = `guide guide--${edge.type} guide--${edge.direction}`;
-  }
+  scale: 1
 });
 
 let drag = null;
