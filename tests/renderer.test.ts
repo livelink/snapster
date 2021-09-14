@@ -320,3 +320,97 @@ it('can take a custom setup', () => {
     }
   ]);
 });
+
+it('can take a custom positioner', () => {
+  const document: DocumentInterface = {
+    createElement(tagName: string) {
+      return { tagName, className: '', style: {} };
+    }
+  };
+
+  const body: ContainerInterface = {
+    children: [],
+
+    appendChild(child: ElementInterface) {
+      this.children.push(child);
+    },
+
+    removeChild(child: ElementInterface) {
+      this.children = this.children.filter((existing: ElementInterface) => existing !== child);
+    }
+  };
+
+  const renderer = new Renderer({
+    document,
+    container: body,
+    positioner: ({ element, edge }) => {
+      element.style[edge.direction === 'horizontal' ? 'top' : 'left'] = `${edge.position * 2}px`;
+    }
+  });
+
+  renderer.draw([
+    new Edge({ direction: 'horizontal', position: 100 }),
+    new Edge({ direction: 'vertical', position: 300 }),
+  ]);
+
+  expect(body.children).toEqual([
+    {
+      tagName: 'div',
+      className: 'guide guide--horizontal',
+      style: { top: '200px', left: null, }
+    },
+    {
+      tagName: 'div',
+      className: 'guide guide--vertical',
+      style: { left: '600px', top: null, }
+    }
+  ]);
+});
+
+it('can take a custom reset', () => {
+  const document: DocumentInterface = {
+    createElement(tagName: string) {
+      return { tagName, className: '', style: {} };
+    }
+  };
+
+  const body: ContainerInterface = {
+    children: [],
+
+    appendChild(child: ElementInterface) {
+      this.children.push(child);
+    },
+
+    removeChild(child: ElementInterface) {
+      this.children = this.children.filter((existing: ElementInterface) => existing !== child);
+    }
+  };
+
+  const renderer = new Renderer({
+    document,
+    container: body,
+    reset: ({ element }) => {
+      element.className += " inactive";
+      element.style.top = null;
+      element.style.left = null;
+    }
+  });
+
+  renderer.draw([
+    new Edge({ direction: 'horizontal', position: 100 }),
+    new Edge({ direction: 'vertical', position: 300 }),
+  ]);
+
+  expect(body.children).toEqual([
+    {
+      tagName: 'div',
+      className: 'guide guide--horizontal inactive',
+      style: { top: '100px', left: null, }
+    },
+    {
+      tagName: 'div',
+      className: 'guide guide--vertical inactive',
+      style: { left: '300px', top: null, }
+    }
+  ]);
+});
