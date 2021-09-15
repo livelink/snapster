@@ -14,9 +14,12 @@ export default class Snap {
   }
 
   to(box: Box): PointInterface {
+    const grid = this.grid;
+    const { left, center, right, width, x, top, middle, bottom, height, y } = box;
+
     return {
-      x: this.snapAxis(this.grid.verticals, box.left, box.center, box.right, box.width, box.x),
-      y: this.snapAxis(this.grid.horizontals, box.top, box.middle, box.bottom, box.height, box.y)
+      x: this.snapAxis(grid.verticals, left, center, right, width, x),
+      y: this.snapAxis(grid.horizontals, top, middle, bottom, height, y)
     };
   }
 
@@ -29,20 +32,23 @@ export default class Snap {
     fallback: number
   ): number {
     for (let edge of edges) {
-      const startMatch = this.snapped(edge, start, 0, fallback);
-      if (startMatch !== fallback) return startMatch;
-
-      const middleMatch = this.snapped(edge, middle, extent / 2, fallback);
-      if (middleMatch !== fallback) return middleMatch;
-
-      const endMatch = this.snapped(edge, end, extent, fallback);
-      if (endMatch !== fallback) return endMatch;
+      for (const [position, offset] of [
+        [start, 0], [middle, extent / 2], [end, extent]
+      ]) {
+        const snapped = this.snapped(edge, position, offset, fallback);
+        if (snapped !== fallback) return snapped;
+      }
     }
 
     return fallback;
   }
 
-  private snapped(edge: Edge, position: number, offset: number, fallback: number): number {
+  private snapped(
+    edge: Edge,
+    position: number,
+    offset: number,
+    fallback: number
+  ): number {
     return this.snappable(edge.position, position) ? edge.position - offset : fallback;
   }
 

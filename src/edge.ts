@@ -1,9 +1,11 @@
+type DirectionType = 'horizontal' | 'vertical';
+
 export default class Edge {
-  direction: 'horizontal' | 'vertical';
+  direction: DirectionType;
   position: number;
   type?: string
 
-  constructor(options: { direction: 'horizontal' | 'vertical', position: number, type?: string }) {
+  constructor(options: { direction: DirectionType, position: number, type?: string }) {
     this.direction = options.direction;
     this.position = options.position;
     this.type = options.type;
