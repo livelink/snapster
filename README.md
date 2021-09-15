@@ -54,6 +54,8 @@ box.style.top = `${position.y}px`;
 snapster.clear();
 ```
 
+See [example on CodePen](https://codepen.io/thelucid/pen/bGRYGYY).
+
 ## Tests
 
 To run the Jest test suite, just run:
