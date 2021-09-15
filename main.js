@@ -2,15 +2,7 @@ import './style.css';
 import Snapster from './src/snapster';
 
 const container = document.querySelector('.page');
-
-const snapster = new Snapster({
-  document,
-  container,
-  threshold: 8,
-  setup: (element, edge) => {
-    element.className = `guide guide--${edge.type} guide--${edge.direction}`;
-  }
-});
+const snapster = new Snapster({ document, container });
 
 let drag = null;
 let shiftX;

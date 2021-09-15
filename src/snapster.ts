@@ -21,18 +21,21 @@ export default class Snapster {
       document: DocumentInterface,
       container: ContainerInterface,
       threshold?: number,
-      setup?: (element: ElementInterface, edge: Edge) => void
+      setup?: (options: { element: ElementInterface, edge: Edge }) => void
+      positioner?: (options: { element: ElementInterface, edge: Edge }) => void
+      reset?: (options: { element: ElementInterface }) => void
     }
   ) {
     this.grid = new Grid();
     this.snapping = new Snap({ grid: this.grid, threshold: options.threshold || 8 });
+
     this.renderer = new Renderer(
       {
         document: options.document,
         container: options.container,
-        setup: options.setup || ((element, edge) => {
-          element.className = `guide guide--${edge.direction}`;
-        })
+        setup: options.setup,
+        positioner: options.positioner,
+        reset: options.reset
       }
     );
   }

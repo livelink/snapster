@@ -4,40 +4,62 @@ import DocumentInterface from './interfaces/document-interface';
 import ContainerInterface from './interfaces/container-interface';
 import ElementInterface from './interfaces/element-interface';
 
-const positioning = {
-  horizontal: { positioner: 'top', clearer: 'left' },
-  vertical: { positioner: 'left', clearer: 'top' }
-}
+const defaultSetup = (options: { element: ElementInterface, edge: Edge }) => {
+  const { element, edge } = options;
 
+  const modifiers: string[] = [edge.direction];
+  if (edge.type) modifiers.push(edge.type);
+
+  const classes = ['guide', ...modifiers.map(modifier => `guide--${modifier}`)];
+  element.className = classes.join(' ');
+};
+
+const defaultPositioner = (options: { element: ElementInterface, edge: Edge }) => {
+  const { element, edge } = options;
+
+  element.style[edge.direction === 'horizontal' ? 'top' : 'left'] = `${edge.position}px`;
+};
+
+const defaultReset = (options: { element: ElementInterface }) => {
+  const style = options.element.style;
+
+  style.top = null;
+  style.left = null;
+};
 export default class Renderer {
   document: DocumentInterface;
   container: ContainerInterface;
   elements: ElementInterface[];
-  private setup: (element: ElementInterface, edge: Edge) => void;
+  private setup: (options: { element: ElementInterface, edge: Edge }) => void;
+  private positioner: (options: { element: ElementInterface, edge: Edge }) => void;
+  private reset: (options: { element: ElementInterface }) => void;
 
   constructor(
     options: {
       document: DocumentInterface,
       container: ContainerInterface,
-      setup: (element: ElementInterface, edge: Edge) => void
+      setup?: (options: { element: ElementInterface, edge: Edge }) => void,
+      positioner?: (options: { element: ElementInterface, edge: Edge }) => void
+      reset?: (options: { element: ElementInterface }) => void
     }
   ) {
     this.document = options.document;
     this.container = options.container;
-    this.setup = options.setup;
+    this.setup = options.setup || defaultSetup;
+    this.positioner = options.positioner || defaultPositioner;
+    this.reset = options.reset || defaultReset;
     this.elements = [];
   }
 
   draw(edges: Edge[]): void {
-    let count = 0;
+    let count: number = 0;
 
     for (const edge of edges) {
       const element: ElementInterface = this.elements[count] || this.createElement();
-      const lookup = positioning[edge.direction];
 
-      this.setup(element, edge);
-      element.style[lookup.positioner] = `${edge.position}px`;
-      element.style[lookup.clearer] = null;
+      this.setup({ element, edge });
+      this.reset({ element });
+      this.positioner({ element, edge });
       count++;
     }
 
@@ -54,8 +76,7 @@ export default class Renderer {
   }
 
   private removeGuidesFrom(start: number): void {
-    const spliced = this.elements.splice(start)
-    for (const element of spliced) {
+    for (const element of this.elements.splice(start)) {
       this.container.removeChild(element);
     }
   }
