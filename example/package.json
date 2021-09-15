@@ -1,0 +1,11 @@
+{
+  "author": "Jamie Hill <jamie@thelucid.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^2.5.2"
+  }
+}

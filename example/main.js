@@ -1,5 +1,5 @@
 import './style.css';
-import Snapster from './src/snapster';
+import Snapster from '../src/snapster';
 
 const container = document.querySelector('.page');
 const snapster = new Snapster({ document, container });

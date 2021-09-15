@@ -1,17 +1,26 @@
 {
-  "name": "snapsterts",
-  "version": "0.0.0",
+  "name": "@livelink/snapster",
+  "version": "0.1.0",
+  "description": "Allowing you to create snapping smart guides in your application.",
+  "main": "index.js",
+  "repository": "https://github.com/livelink/snapster",
+  "author": "Jamie Hill <jamie@thelucid.com>",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENCE.txt",
+    "dist/*.js"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose"
+    "build": "tsc",
+    "test": "jest --verbose"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "jest": "^27.1.0",
     "ts-jest": "^27.0.5",
-    "typescript": "^4.3.2",
-    "vite": "^2.5.2"
+    "typescript": "^4.3.2"
   }
 }
