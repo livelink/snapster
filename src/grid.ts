@@ -15,7 +15,7 @@ export default class Grid {
     this.verticals.push(...this.distinct(box.verticals, this.verticals));
   }
 
-  clear = (): void => {
+  clear(): void {
     this.horizontals = [];
     this.verticals = [];
   }
